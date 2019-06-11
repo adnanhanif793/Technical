@@ -1,0 +1,107 @@
+Scalar Funtion
+
+Create FUNCTION ReturnArea(@length int,@width int)
+RETURNS int
+AS
+BEGIN
+     RETURN @length * @width
+END
+GO
+---------------------------------------------------------------------------
+
+Alter FUNCTION ReturnArea(@length int,@width int)
+RETURNS int
+AS
+BEGIN
+     RETURN @length * @width+5
+END
+GO
+---------------------------------------------------------------------------
+
+DROP FUNCTION ReturnArea
+
+----------------------------------------------------------------------------
+
+Select dbo.ReturnArea(6,5)
+
+----------------------------------------------------------------------------
+Table Function
+
+create FUNCTION ConcatNameAddress (@Name varchar(max )
+
+RETURNS Table
+
+AS
+
+BEGIN
+
+RETURN @Name + ' ' + @Address
+
+END
+
+GO
+------------------------------------------------------------------
+
+Select dbo.ConcatNameAddress(Name, [Address]) from Person                  //[] is used when name of a varaible is reserved word
+
+
+====================================================================================================
+
+View
+
+Create View vuGetTeachers AS
+Select * from Person where Type =2
+
+------------------------------------------------------------
+Select * from vuGetTeachers
+
+================================================================================================
+
+Stored Procedure
+
+Alter Proc RandomGoodness ( @name varchar(max)) AS
+
+BEGIN
+
+Declare @TotalSpent float
+
+Declare @ID int
+
+Select @TotalSpent= Price, @ID = ID from Person where Name = @name
+
+Delete From Person where ID = @ID
+
+END
+
+--RandomGoodness 'bob'
+
+SElect * from Person where ID = 8
+
+
+
+Notice this procedure pulls from the table person
+
+
+------------------
+
+
+N maximum salary:
+
+SELECT MIN(EmpSalary)
+FROM Salary
+WHERE EmpSalary IN(SELECT TOP N EmpSalary FROM Salary ORDER BY EmpSalary DESC) 
+for Ex: 3 maximum salary:
+
+SELECT MIN(EmpSalary)
+FROM Salary
+WHERE EmpSalary IN(SELECT TOP 3 EmpSalary FROM Salary ORDER BY EmpSalary DESC) 
+N minimum salary:
+
+SELECT MAX(EmpSalary)
+FROM Salary
+WHERE EmpSalary IN(SELECT TOP N EmpSalary FROM Salary ORDER BY EmpSalary ASC)
+for Ex: 3 minimum salary:
+
+SELECT MAX(EmpSalary)
+FROM Salary
+WHERE EmpSalary IN(SELECT TOP 3 EmpSalary FROM Salary ORDER BY EmpSalary ASC)

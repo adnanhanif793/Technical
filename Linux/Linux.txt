@@ -1,0 +1,77 @@
+pwd   - present working directory
+echo *  - all folder in the current directory
+echo "Hello" - will print hello
+
+apt-get install tree   - to install tree in linux system
+
+tree - to display tree structure
+
+ls- to display the files and folder in current directory
+
+ls -l  - to display detailed list
+
+
+vi adn.text -To create a file (vim can also be used)
+
+echo $SHELL  - to check the type of shell (it can be bash etc)
+
+
+chmod 777 test.sh  - To change the permission of the file
+
+hostname - to display the hostname
+
+man hostname - give the manual for hostname
+
+hostname -I - for getting the ip of the system (ifconfig can also be used)
+
+fdisk /dev/sda -l  - for cheking the disk space
+
+
+parted and then print  for checking the partition
+
+---------------------------------------------------------------------------------------------------------
+
+ls -l  - For detailed list of all folders and files
+
+drwxr-xr-x   - d is for directory and for files - will be there.
+
+first three permission for the user, next 3 for thr group and next 3 for other users.
+
+ls -a or ls -la  - for listing the hidden files
+
+
+drwxr-xr-x  3  root root
+
+3 is for the for the number of directories contained by it. By default . and ..  hidden folders will be present.
+and 1 will be for files
+first root is the user and second root is the group.
+
+--------------------------------------------------------------------------------------------------
+by default when a directory is created there is space allocation of 4096
+
+inodes- All files are stored in a particular physical blocks which may not be ordered as some of data might be deleted, so a way to arrange is it to prepare alist of inodes
+
+ls -ia and ls -lia    for inodes
+
+inode are data structure from where to fetch the data
+
+---------------------------------------------------------------------------------------------------------------
+ls -lrt   for listing files on basis of time in ascending order
+ls -lt    for listing files on basis of time in descending order 
+ls -l     for listing files on basis of name in ASCII order 
+ls -lrS   for listing files on basis of size in ascending order
+ls -lS    for listing files on basis of size in descending order
+
+ls -lh    for size of file in terms of KB, MB
+
+man ls    for manual of ls
+
+
+
+
+
+
+
+
+
+
