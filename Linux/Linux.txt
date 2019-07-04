@@ -3,6 +3,7 @@ echo *  - all folder in the current directory
 echo "Hello" - will print hello
 
 apt-get install tree   - to install tree in linux system
+sudo apt-get -y install konsole
 
 tree - to display tree structure
 
@@ -22,7 +23,7 @@ hostname - to display the hostname
 
 man hostname - give the manual for hostname
 
-hostname -I - for getting the ip of the system (ifconfig can also be used)
+hostname -I   - for getting the ip of the system (ifconfig can also be used)
 
 fdisk /dev/sda -l  - for cheking the disk space
 
@@ -66,10 +67,18 @@ ls -lh    for size of file in terms of KB, MB
 
 man ls    for manual of ls
 
+===========================================================================
 
 
+cat > abc.txt  (for creating the file and entering in the file, ctrl+D for ending the input)
+
+vi abc1.txt
+
+cat abc.txt abc1.txt > new_file.txt  (copies the content of bot files into newfile.txt)
 
 
+cat new_file.txt |more(or less)       (| piping output from one command to another)
+(more means display one screen shot at time, spacebar to diplay next page)
 
 
 
