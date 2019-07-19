@@ -81,6 +81,209 @@ cat new_file.txt |more(or less)       (| piping output from one command to anoth
 (more means display one screen shot at time, spacebar to diplay next page)
 
 
+rm abc.txt (to remove the file)
+
+rm -fr directoryName (for removing a directory, f is force and r is recursive(deleting all subfolder and files))
+
+mkdir directoryName  (for making a directory)
+
+rmdir directoryName  (for removing a directory but the directory should be empty )
+
+
+history or !h  - to check the history of commands
+
+==========================================================================================
+
+cp test.spp test1.cpp                copies file
+   (Source file) (Dest files)
+
+cp -rf abc abc_dest     (for copying all files and foders)(r is for recursive and f is for forced overwriting if the  folder already exists)
+
+
+
+mv test.cpp butter.cpp   (for renaming the file and folders)
+
+==========================================================================================
+
+cal  (will show the calendar of present month)
+
+cal 2017 (will show calendar of all months of 2017)
+
+cal 03 2015 (3rd month of 2015)
+
+date  (for displaying today's date and time)
+
+date -u   (UTC time, time in London)
+
+date +"%T"  (only time)
+
+date + %B   (month in leters)
+
+date + %d   (day of the month)
+
+date +%D    (mm/dd/yy format)
+
+date +%F    (yyyy-mm-dd format)
+
+man date    ( for manual of date)
+
+date +"%m-%d-%Y"    (mm-dd-yyyy)
+(m= 2 digit for month,d= 2 digit for day,Y=4 digit for year)
+
+
+date +"%m%d%H%M%Y.%S"              
+(m= 2 digit for month,d= 2 digit for day,H=2 digit hour,M=2 digit minute, Y= 4 digit Year, S= 2 digit Sec)
+
+date can be set by using super user privileges
+
+date 080215362017.37    (sets the date as Wed Aug 2 15:36:37 PDT 2017)
+
+
+time test.sh           (time taken to run the script)
+
+===========================================================================================
+
+sudo apt -get -y install vim
+
+vi myfile.txt
+
+2 modes:
+1- command mode  (escape to go into command mode)
+2- Insert mode  (i to go into insert mode)
+
+(ESC might be required before all these commands)
+dd    to delete a line in command mode
+o     to get line below a line
+dw    to delete a particuar word
+3dw   to delete 3 words
+x     to delete a letter
+yy    to copy a line
+p     to paste the line
+5dd   to delete 5 lines
+u     to undo
+100p  to paste line 100 times
+
+Esc: set nonu        (to remove the line numbers)
+Esc: set nu          (to display the line number)
+
+
+Esc/packageS          (search for package in file[case insensitive])
+
+Esc: set noic        (turn on case sensitive)
+
+Esc/packageS         (Pattern not found) 
+
+Esc: set ic          (turn on case insensitive)
+
+
+Esc then SHIFT+R D     (replace the selected character with given character)
+
+Esc SHIFT+A            (to go to the end of the line)
+Esc SHIFT |	       (to go to the starting of the line)
+
+SHIFT+j		       (move one line from bottom to top)
+
+Esc:55		       (move to line 55)
+
+
+SHIFT+g		       (move to the end of the file)
+
+Esc:1                   (move to beginning of the file)
+
+
+Esc:q!                 (to discard the changes in file and quit,if ! is not used then it will give prompt )
+
+
+
+:wq!                   (save the changes and quit edito)
+
+:w!		        (save the changes without quitting)
+
+:e  or f               (to see the file name)
+
+
+:e test2.txt           (to open another file test2)
+
+
+:bn			(for opening next file)
+
+
+
+:sp  and vsp 		(for splitting screen horizontally and vertically)
+
+CTRL+ww 		(to toggle between splitted windows)
+
+
+==============================================================================================
+
+rwx
+
+r=4
+w=2
+x=1
+
+rwxrwxrwx  =777
+
+r--r--r--  =444
+
+r-x------  =500
+
+
+touch file1.txt    (to create a blank file named file1.txt)
+
+
+
+chmod 777 file1.txt   (give rwx permission to all)
+
+
+chmod o+wx file1.txt   (give wx permission to others)
+
+
+chmod o-wx file1.txt   (remove wx permission from others)
+
+(u can be used for users and g can be used for groups)
+
+
+chmod g=rw file1.txt   (to assign permission to group even if they are having other permissions)
+
+
+chmod -R 777 test      (for changing the permission of all folders and file in test folder, R for recursive)
+
+chmod 777 test         (will only change the permiision of test folder not the file it contains)
+
+
+
+sudo chgrp home file1        (will change the group of file1 to home)
+
+sudo chown john:john file3     (will change the user and group of file3 to john)
+ 
+sudo chown -R mike:john test   (for changing user and group of all files and folder inside test folder)
+
+
+getent passwd     (to get all the users present in the system, basically it opens /etc/passwd )
+
+
+getent group      (to get all the groups present in the system, basically it opens /etc/groups)
+
+==============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
