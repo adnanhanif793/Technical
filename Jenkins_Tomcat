@@ -6,7 +6,7 @@ If you want to use https use the following command:
 
 java -jar jenkins.war --httpsPort=9090
 
-
+====================================================================================================
 
 Tomcat
 
@@ -28,4 +28,37 @@ Note that for Tomcat 7 onwards, the roles required to use the manager applicatio
     manager-script - allows access to the text interface and the status pages
     manager-jmx - allows access to the JMX proxy and the status pages
     manager-status - allows access to the status pages only
+
+=====================================================================================================
+github
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install git
+
+
+git config --global user.name "adnanhanif793"
+git config --global user.email "adnanhanif793@gmail.com"
+
+git init
+
+git status
+git add .
+git commit -m "First commit"
+
+git remote add origin https://github.com/adnanhanif793/Technical
+
+git push origin master
+
+git clone "https://github.com/adnanhanif793/Technical"
+
+
+
+
+
+
+
+
+
+
 
