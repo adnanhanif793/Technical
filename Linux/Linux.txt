@@ -28,7 +28,7 @@ hostname -I   - for getting the ip of the system (ifconfig can also be used)
 fdisk /dev/sda -l  - for cheking the disk space
 
 
-parted and then print  for checking the partition
+parted and then print  --for checking the partition
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ ls -l  - For detailed list of all folders and files
 
 drwxr-xr-x   - d is for directory and for files - will be there.
 
-first three permission for the user, next 3 for thr group and next 3 for other users.
+first three permission for the user, next 3 for the group and next 3 for other users.
 
 ls -a or ls -la  - for listing the hidden files
 
@@ -267,7 +267,95 @@ getent group      (to get all the groups present in the system, basically it ope
 
 ==============================================================================================
 
+top      (to display top processes, q to come out of the command)
+(top command keeps on running so if you try to store it in some file it will hang)
 
+
+top -b -n 2     (top keep on running so here you specify the no. of iterations ie. 2, b is for batch)
+
+top -b -n 1 > file.txt    (to store one iteration of top in file.txt)
+
+
+
+ps -ef | more      (for showing all the processes in the system pagewise)
+
+
+ps auxwww           (more details and exact command line to run this)
+
+
+=============================================================================================
+
+
+> Redirect to a file or stdout
+
+< Input from a file or stdin
+
+<< Append to a file (not overwrite)
+>> Redirect and append to a file  
+
+
+1>filename           (Redirects stdout to a filename)
+
+1>>filename          (Redirects stdout to a filename)
+
+2>filename           (Redirects stderr to a filename)
+
+&>filename           (Redirects both stderr and stdout to a filename)
+
+
+
+/dev/null   is special character device where redirection to it is completely lost
+This is particularly useful when we want to discard error message
+
+echo hello > /dev/null    (echo for hello is not printed)
+(if you want to kill a process but the process does not exist, then to discard the error message we can use it)
+
+
+ls -l > filename.txt        (the list of files will be saved to filename.txt) 
+
+
+> filename1.txt             (to create an empty file or remove all the content from an existing file)
+
+
+echo hello >> filename.txt          (to append hello to the file)
+
+echo hello123 > filename.txt        (to overwrite the content of the file with hello123)
+
+
+ls -l >/dev/null               (dump data into dev/null)
+ls -l /dev/null
+
+
+
+ls -l test12345 > file123.txt        (only stdout goes to the file)
+ls: cannot access test12345 : No such file or directory
+
+
+
+ls -l test123 > file123.txt 2>&1      (2 is for stderr , stderr to stdout then output to file)
+(now the error message will also go to the file)
+ 
+echo $?       (any nonzero number is error message, it is executed after the command)
+
+
+========================================================================================================
+exec spawns a new shell or new process
+
+exec 3<> filename
+
+exec 3<> mylog.txt
+
+echo "hello" (will display hello on screen)
+
+echo "hello" >&3  (hello will not display on the screen but will get stored in mylog.txt)
+
+echo "hello1" >&3 (this will append to the already existing file and not overwrite)
+
+
+exec 3>&- (will turn off this behaviour which means whatever redirection is happening with file descriptor 3 will not happen)
+
+echo "what" >&3
+3: Bad file descriptor
 
 
 

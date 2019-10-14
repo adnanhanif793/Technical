@@ -1,0 +1,33 @@
+Functional Testing    
+
+Unit Testing: Individually and independently testing of smallest testable parts of an application.
+    Smoke Testing: This testing is performed on the initial software build to check whether the critical functionalities are working fine or not so as to carry out further extensive testing.
+    Sanity Testing: Sanity Testing is performed on a stable software build, which underwent small changes in the code or functionality. The objective is to make sure that the errors have been solved and confirm that there are no more errors/bugs introduced due to the new changes.
+    Integration Testing: The integration testing is performed when two or more functions or components of the software are integrated to form a system. Basically, it checks the correct functioning of the software when the components are merged as a single unit.
+    Regression Testing: Regression Testing is performed when a bug is fixed or new functionality has been introduced to a program. It ensures that existing functionality has not been broken due to the introduction of new changes. 
+    User Acceptance Testing: it is a type of software testing where a system is tested for customer’s acceptability. The only purpose of this test is to evaluate the compliance of the system with its business requirements and to evaluate if it is acceptable for delivery. It also verifies whether the software can perform specified tasks in real situations.
+
+
+=============================================================================================
+
+Non Functional Testing
+
+    Performance testing: Performance testing aims to determine the performance of a system in terms of responsiveness and stability under a certain load. There are basically four types of Performance testing: 
+        Load Testing: To evaluate the behavior of a system by increasing the workload.
+        Stress Testing: To evaluate the behavior of a system at or beyond the limits of its expected workload.
+        Endurance Testing: To evaluate the behavior of a system when a significant workload is provided continuously.
+        Spike Testing: To evaluate the behavior of a system when the load suddenly and substantially increases.
+    Usability Testing: Usability testing is a way to see how easy to use something is by testing it with real users.
+    Scalability Testing: In this, an application’s performance is measured in terms of its ability to scale up or scale down the number of user requests or other such performance measure attributes.
+    Security Testing: The security test is defined as a type of Non-Functional testing that guarantees that software systems and applications are free of any risk or threat. The security testing aims to find all possible gaps and weaknesses of the system that could result in a loss of information or any other asset.
+    Recovery testing: The recovery testing is performed to check how fast and better the application can recover after it has suffered some kind of hardware failure, virus attack or any kind of system crash.
+    Reliability Testing: The reliability testing verifies whether the software can perform a faultless operation for a specific period of time in a specific environment.
+    Documentation Testing: The documentation testing is Non-Functional testing that involves testing the documented artifacts that are usually developed before or during the software testing. For example, Test Cases, Test Plans, etc.
+
+==============================================================================================
+a=[1,4,6]
+
+
+for i,j in enumerate(a):
+
+    print (i,j,sep="-",end=',')

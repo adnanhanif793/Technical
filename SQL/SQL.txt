@@ -1,3 +1,160 @@
+SELECT * FROM Customers;
+
+
+
+
+    SELECT - extracts data from a database
+    UPDATE - updates data in a database
+    DELETE - deletes data from a database
+    INSERT INTO - inserts new data into a database
+    CREATE DATABASE - creates a new database
+    ALTER DATABASE - modifies a database
+    CREATE TABLE - creates a new table
+    ALTER TABLE - modifies a table
+    DROP TABLE - deletes a table
+    CREATE INDEX - creates an index (search key)
+    DROP INDEX - deletes an index
+
+
+SELECT CustomerName, City FROM Customers;
+
+
+SELECT Country FROM Customers;  		(Duplicate Countries Also)
+SELECT DISTINCT Country FROM Customers;		(No duplicates)
+SELECT COUNT(DISTINCT Country) FROM Customers;
+
+SELECT * FROM Customers
+WHERE Country='Mexico'
+
+SELECT * FROM Customers
+WHERE CustomerID=1; 
+
+
+SELECT * FROM Customers
+WHERE Country='Germany' AND City='Berlin'
+
+SELECT * FROM Customers
+WHERE Country='Germany' OR Country='Spain'
+
+SELECT * FROM Customers
+WHERE NOT Country='Germany'
+
+SELECT * FROM Customers
+WHERE Country='Germany' AND (City='Berlin' OR City='München')
+
+SELECT * FROM Customers
+WHERE NOT Country='Germany' AND NOT Country='USA'
+
+
+SELECT * FROM Customers
+ORDER BY Country
+
+SELECT * FROM Customers
+ORDER BY Country DESC
+
+SELECT * FROM Customers
+ORDER BY Country, CustomerName
+
+SELECT * FROM Customers
+ORDER BY Country ASC, CustomerName DESC
+
+
+INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+VALUES ('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway')
+
+Insert Data Only in Specified Columns
+
+INSERT INTO Customers (CustomerName, City, Country)
+VALUES ('Cardinal', 'Stavanger', 'Norway')
+
+A NULL value is different from a zero value or a field that contains spaces. A field with a NULL value is one that has been left blank during record creation
+
+SELECT CustomerName, ContactName, Address
+FROM Customers
+WHERE Address IS NULL
+
+SELECT CustomerName, ContactName, Address
+FROM Customers
+WHERE Address IS NOT NULL
+
+
+UPDATE Customers
+SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+WHERE CustomerID = 1
+
+
+UPDATE Customers
+SET ContactName='Juan'
+WHERE Country='Mexico
+
+Be careful when updating records. If you omit the WHERE clause, ALL records will be updated
+
+
+
+DELETE FROM table_name      (Delete all records)
+
+
+DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste'
+
+
+SELECT * FROM Customers
+WHERE ROWNUM <= 3
+
+SELECT * FROM Customers
+WHERE Country='Germany' AND ROWNUM <= 3
+
+SELECT MIN(Price) AS SmallestPrice
+FROM Products
+
+SELECT MAX(Price) AS LargestPrice
+FROM Products
+
+SELECT COUNT(ProductID)
+FROM Products
+
+SELECT AVG(Price)
+FROM Products
+
+SELECT SUM(Quantity)
+FROM OrderDetails
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'a%'     (name starts with a)
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%a'     (name ends with a)
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%or%'	  (Name that have "or" in any position)
+
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '_r%'	  (Name that have "r" in the second position)
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'a__%	  (Name that starts with "a" and are at least 3 characters in length)
+
+
+SELECT * FROM Customers
+WHERE ContactName LIKE 'a%o'	   (Name that starts with "a" and ends with "o")
+
+
+SELECT * FROM Customers
+WHERE CustomerName NOT LIKE 'a%	   (Name that does NOT start with "a")
+
+
+
+SELECT * FROM Customers
+WHERE City LIKE '_ondon'	    (City starting with any character, followed by "ondon")
+
+
+
+SELECT * FROM Customers
+WHERE City LIKE 'L_n_on'	    (City starting with "L", followed by any character, followed by "n", 				     followed by any character, followed by "on")
+
+
+
+
 Scalar Funtion
 
 Create FUNCTION ReturnArea(@length int,@width int)
