@@ -357,21 +357,70 @@ exec 3>&- (will turn off this behaviour which means whatever redirection is happ
 echo "what" >&3
 3: Bad file descriptor
 
+=====================================================================================
+Pipes | are used as a funnel to pass the output of one command to another
+
+ls -lR    gives lot of data
+
+ls -lR |less     displays 1 page at a time
 
 
+ls -lt            (displays the full list)   
+ls -lt |head -5	  (displays only the first 5 lines)
 
 
+find . -type f           (f is regular file type, it displays all files of type f)
 
 
+find . -type f |wc	 (displays lines, words and character count)
+
+find . -type f |wc -l    (displays lines count)
+
+find . -type f |wc -w    (displays words count)
+
+find . -type f |wc -c    (displays character count)
+
+wc /etc/passwd          (displays lines, words and character count of passwd file)
 
 
+wc /etc/passwd > file1.txt  (writes the output into the file and not on screen)
 
 
+wc /etc/passwd | tee file1.txt (writes the output into the file as well as shows on                                 screen)
 
 
+======================================================================================
+wildcard
+
+ls ?                (displays filenames with 1 character)
+ls ????????         (displays filenames with 8 characters)
 
 
+ls *.txt            (displays all file with .txt)
+
+ls m[a-d]n          (displays files which start with m, contains anything between a to                      d and ends with n
+ 
+ls [0-9]*            (displays all files which have starts with numeric digit b/w 			mentioned digits and end with anything)
+
+ls *[0-9]*     	      (displays all files which have some numeric digit b/w 			                mentioned digits and end with anything)
 
 
+ls {*.doc, *.pdf}      (display all doc and pdf files)
+
+ls -l test_[!9]*       (not display file test_9)
+
+======================================================================================
+
+vi hairyspider
+
+For starters, access vi and a specific file.
+
+esc.jpg/spider
+
+Enter command mode, then type / followed by the text you're looking for. Here, we're looking for "spider," but you may be looking for "the fly" or "wiggled and jiggled and tickled inside her." Or whatever.
+
+enter.jpg
+
+Press enter.jpg to find the first occurrence of the term. Type n to find the next one.
 
 
