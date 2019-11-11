@@ -204,6 +204,87 @@ WHERE Country NOT IN ('Germany', 'France', 'UK');  selects all customers that ar
 
 
 
+SELECT * FROM Customers
+WHERE Country IN (SELECT Country FROM Suppliers)	selects all customers that are 							from the same countries as the 							suppliers
+
+
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20				selects all products with a 							price BETWEEN 10 and 20
+
+
+SELECT * FROM Products
+WHERE Price NOT BETWEEN 10 AND 20
+
+
+
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20
+AND NOT CategoryID IN (1,2,3)				selects all products with a 							price BETWEEN 10 and 20. In 							addition; do not show products 							with a CategoryID of 1,2, or 3
+
+
+
+SELECT * FROM Products
+WHERE ProductName BETWEEN "Carnarvon Tigers" AND "Chef Anton's Cajun Seasoning"
+ORDER BY ProductName;
+
+
+SELECT * FROM Products
+WHERE ProductName NOT BETWEEN 'Carnarvon Tigers' AND 'Mozzarella di Giovanni'
+ORDER BY ProductName
+
+
+
+SELECT * FROM Orders
+WHERE OrderDate BETWEEN '1996-07-01' AND '1996-07-31'
+
+
+
+SELECT CustomerID AS ID, CustomerName AS Customer
+FROM Customers
+
+SELECT CustomerName AS Customer, ContactName AS [Contact Person]
+FROM Customers								It requires 											double quotation marks 									or square brackets if 									the alias name contains 									spaces
+
+
+
+SELECT CustomerName, Address + ', ' + PostalCode + ' ' + City + ', ' + Country AS Address
+FROM Customers										creates an alias 										named "Address" that 										combine four columns 										(Address, PostalCode, City 											and Country)
+
+
+SELECT o.OrderID, o.OrderDate, c.CustomerName
+FROM Customers AS c, Orders AS o
+WHERE c.CustomerName="Around the Horn" AND c.CustomerID=o.CustomerID		 (Alias)
+
+=========================================================================================================
+
+JOINS
+
+A JOIN clause is used to combine rows from two or more tables, based on a related column between them
+
+INNER JOIN
+
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID		selects records that have 											matching values in both tables
+
+
+
+The INNER JOIN keyword selects all rows from both tables as long as there is a match between the columns. If there are records in the "Orders" table that do not have matches in "Customers", these orders will not be shown
+
+
+SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName
+FROM ((Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID)
+
+
+
+SQL LEFT JOIN
+The LEFT JOIN keyword returns all records from the left table (table1), and the matched records from the right table (table2). The result is NULL from the right side, if there is no match
+
+
+
+
 
 
 
