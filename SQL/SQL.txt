@@ -280,8 +280,299 @@ INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID)
 
 
 SQL LEFT JOIN
-The LEFT JOIN keyword returns all records from the left table (table1), and the matched records from the right table (table2). The result is NULL from the right side, if there is no match
+The LEFT JOIN keyword returns all records from the left table (table1), and the matched records from the right table (table2). The result is NULL(blank) from the right side, if there is no match
 
+
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+ORDER BY Customers.CustomerName
+
+
+RIGHT JOIN Keyword
+
+The RIGHT JOIN keyword returns all records from the right table (table2), and the matched records from the left table (table1). The result is NULL(blank) from the left side, when there is no match.
+
+
+SELECT Orders.OrderID, Employees.LastName, Employees.FirstName
+FROM Orders
+RIGHT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.OrderID
+
+
+FULL OUTER JOIN Keyword
+The FULL OUTER JOIN keyword returns all records when there is a match in left (table1) or right (table2) table records.
+
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+FULL OUTER JOIN Orders ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName
+
+
+The FULL OUTER JOIN keyword returns all matching records from both tables whether the other table matches or not. So, if there are rows in "Customers" that do not have matches in "Orders", or if there are rows in "Orders" that do not have matches in "Customers", those rows will be listed as well
+
+
+Self JOIN
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+AND A.City = B.City
+ORDER BY A.City
+
+========================================================================================================
+
+
+SQL UNION Operator
+
+The UNION operator is used to combine the result-set of two or more SELECT statements.
+
+    Each SELECT statement within UNION must have the same number of columns
+    The columns must also have similar data types
+    The columns in each SELECT statement must also be in the same order
+
+
+following SQL statement returns the cities (only distinct values) from both the "Customers" and the "Suppliers" table:
+
+SELECT City FROM Customers
+UNION
+SELECT City FROM Suppliers
+ORDER BY City
+
+
+
+UNION ALL Syntax
+
+The UNION operator selects only distinct values by default. To allow duplicate values, use UNION ALL
+
+
+following SQL statement returns the cities (duplicate values also) from both the "Customers" and the "Suppliers" table:
+
+SELECT City FROM Customers
+UNION ALL
+SELECT City FROM Suppliers
+ORDER BY City
+
+
+GROUP BY Statement
+
+The GROUP BY statement groups rows that have the same values into summary rows, like "find the number of customers in each country"
+
+
+lists the number of customers in each country
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+
+
+following SQL statement lists the number of customers in each country, sorted high to low
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC
+
+
+HAVING Clause
+
+The HAVING clause was added to SQL because the WHERE keyword could not be used with aggregate functions.
+
+
+following SQL statement lists the number of customers in each country, sorted high to low (Only include countries with more than 5 customers)
+
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5
+ORDER BY COUNT(CustomerID) DESC
+
+
+
+following SQL statement lists if the employees "Davolio" or "Fuller" have registered more than 25 orders
+
+SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumberOfOrders
+FROM Orders
+INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+WHERE LastName = 'Davolio' OR LastName = 'Fuller'
+GROUP BY LastName
+HAVING COUNT(Orders.OrderID) > 25
+
+======================================================================================================
+SQL SELECT INTO Statement
+
+The SELECT INTO statement copies data from one table into a new table
+
+following SQL statement creates a backup copy of Customers:
+SELECT * INTO CustomersBackup2017
+FROM Customers
+
+
+The following SQL statement uses the IN clause to copy the table into a new table in another database:
+SELECT * INTO CustomersBackup2017 IN 'Backup.mdb'
+FROM Customer
+
+
+The following SQL statement copies only a few columns into a new table:
+SELECT CustomerName, ContactName INTO CustomersBackup2017
+FROM Customers
+
+
+
+following SQL statement copies only the German customers into a new table:
+SELECT * INTO CustomersGermany
+FROM Customers
+WHERE Country = 'Germany'
+
+
+following SQL statement copies data from more than one table into a new table:
+SELECT Customers.CustomerName, Orders.OrderID
+INTO CustomersOrderBackup2017
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+
+
+SELECT INTO can also be used to create a new, empty table using the schema of another. Just add a WHERE clause that causes the query to return no data:
+SELECT * INTO newtable
+FROM oldtable
+WHERE 1 = 0;
+
+
+
+INSERT INTO SELECT
+INSERT INTO Customers (CustomerName, City, Country)
+SELECT SupplierName, City, Country FROM Suppliers
+WHERE Country='Germany'
+
+
+
+SQL CASE Examples
+
+The following SQL goes through conditions and returns a value when the first condition is met:
+
+SELECT OrderID, Quantity,
+CASE
+    WHEN Quantity > 30 THEN "The quantity is greater than 30"
+    WHEN Quantity = 30 THEN "The quantity is 30"
+    ELSE "The quantity is under 30"
+END AS QuantityText
+FROM OrderDetails
+
+
+
+following SQL will order the customers by City. However, if City is NULL, then order by Country:
+
+SELECT CustomerName, City, Country
+FROM Customers
+ORDER BY
+(CASE
+    WHEN City IS NULL THEN Country
+    ELSE City
+END)
+
+
+====================================================================================================
+What is a Stored Procedure?
+
+A stored procedure is a prepared SQL code that you can save, so the code can be reused over and over again.
+
+So if you have an SQL query that you write over and over again, save it as a stored procedure, and then just call it to execute it.
+
+You can also pass parameters to a stored procedure, so that the stored procedure can act based on the parameter value(s) that is passed.
+
+
+following SQL statement creates a stored procedure named "SelectAllCustomers" that selects all records from the "Customers" table:
+
+CREATE PROCEDURE SelectAllCustomers
+AS
+SELECT * FROM Customers
+GO;
+
+
+
+Execute the stored procedure above as follows:
+
+EXEC SelectAllCustomers
+
+
+
+Stored Procedure With Multiple Parameters
+
+Setting up multiple parameters is very easy. Just list each parameter and the data type separated by a comma as shown below.
+
+The following SQL statement creates a stored procedure that selects Customers from a particular City with a particular PostalCode from the "Customers" table:
+
+ CREATE PROCEDURE SelectAllCustomers @City nvarchar(30), @PostalCode nvarchar(10)
+AS
+SELECT * FROM Customers WHERE City = @City AND PostalCode = @PostalCode
+GO; 
+
+
+Execute the stored procedure above as follows:
+EXEC SelectAllCustomers @City = "London", @PostalCode = "WA1 1DP";
+
+
+
+CREATE DATABASE testDB
+DROP DATABASE testDB
+
+CREATE TABLE Persons (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255)
+);
+
+Create Table Using Another Table
+
+A copy of an existing table can also be created using CREATE TABLE.
+
+The new table gets the same column definitions. All columns or specific columns can be selected.
+
+If you create a new table using an existing table, the new table will be filled with the existing values from the old table.
+
+CREATE TABLE TestTable AS
+SELECT customername, contactname
+FROM customers
+
+
+SQL DROP TABLE Statement
+
+The DROP TABLE statement is used to drop an existing table in a database.
+DROP TABLE table_name
+
+
+SQL TRUNCATE TABLE
+
+The TRUNCATE TABLE statement is used to delete the data inside a table, but not the table itself.
+
+
+ALTER TABLE Statement
+
+The ALTER TABLE statement is used to add, delete, or modify columns in an existing table.
+
+The ALTER TABLE statement is also used to add and drop various constraints on an existing table.
+
+
+ALTER TABLE Customers
+ADD Email varchar(255)
+
+ALTER TABLE Customers
+DROP COLUMN Email
+
+ALTER TABLE table_name
+MODIFY column_name datatype
+
+
+PRIMARY KEY Constraint
+
+The PRIMARY KEY constraint uniquely identifies each record in a table.
+
+Primary keys must contain UNIQUE values, and cannot contain NULL values.
+
+A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns
 
 
 
