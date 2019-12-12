@@ -574,12 +574,17 @@ Primary keys must contain UNIQUE values, and cannot contain NULL values.
 
 A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns
 
+======================================================================================================
+We can use the below example query to fetch the duplicate records.
+
+SELECT EMP_NAME, COUNT (EMP_NAME)
+FROM EMP
+GROUP BY EMP_NAME
+HAVING COUNT (EMP_NAME) > 1;
 
 
 
-
-
-
+======================================================================================================
 Scalar Funtion
 
 Create FUNCTION ReturnArea(@length int,@width int)
