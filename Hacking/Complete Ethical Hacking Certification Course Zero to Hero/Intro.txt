@@ -1,0 +1,58 @@
+Vulnerability Scanning
+The process of proactively identifying the vulnerabilities of computer systems on a network
+It identifies the operating system and version number including service packs that may be installed, then it identifies the weaknesses in the operating system.
+It looks for open ports and ip's 
+
+CEH Scanning Methodology
+1- Check for Live Systems   (using ping, all systems which reply to ping are live)
+2- Check for Open Ports
+3- Service Identification
+4- Banner Grabbing/OS Fingerprinting
+5- Vulnerability Scanning
+6- Draw Network Diagrams of Vulnerable Hosts
+7- Prepare Proxies
+8- Attack 
+
+ping is also known as ICMP(Internet Control Message Protocol) scanning.
+Ping sweep is the process of sending an ICMP request to all hosts on the network to determine which ones are up and responding to pings.
+
+Icmp began as  protocol to send test and error messages between hosts on the network
+
+A benefit of ICMP scanning is that it can be run in parallel, meaning all systems are scanned at the same time, thus it can run quickly on an entire network.
+
+One problem with this method is that personal firewall software and network based firewalls can block a system from responding to ping sweeps. Many systems are configured with firewalls which will block the ping attempt and notify the user that a scanning program is running on the network.
+
+=================================================================================
+
+Sniffers
+A sniffer is a packet capturing or frame capturing tool. It basically captures and displays the data as it is being transmitted from host to host on the network.
+Genarally a sniffer intercept traffic on the network and displays it either on command line or GUI.
+A sniffer can be used to discover usenames, passwords and other confidential information transmitted on the network.
+
+The term packet refers to data at Layer 3 or the network layer of the OSI model
+wheras frame refers to data at Layer 2 or the data link layer.
+
+Frames contain MAC Addresses and packets contain IP Addresses.
+
+=================================================================================
+
+Understanding Host to Host Communication
+All Host to host network communications are based upon TCP/IP Data Communications Model. TCP/IP model is a 4 laye model.
+
+Application Layer data is encapsulated and a header containing address information is added to the beginning of the data and IP header containing source and destination ip address are added to the data as well as MAC header containing source and destination MAC addresses.
+
+IP addresses are used to route traffic to the appropriate IP Network and the MAC addresses ensure that the data is sent to the correct host on the destination IP network. In this manner traffic is sent from source host to destination host across the internet
+
+TCP header comprises of the following fields:
+1- Source Port 16 bit
+2- Source Port number
+3- Destination Port 16 bit
+4- Destination Port Number
+5- Sequence number 32 bit
+6- Sequence Number of the first data octet in this segment
+
+=============================================================================
+
+Denial of Service
+A DoS attack is an attempt by a hacker to flood a user's or an organization's system
+

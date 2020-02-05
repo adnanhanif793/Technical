@@ -1,0 +1,142 @@
+CMD
+
+Tap F8 key on startup and select Safe Mode with Command Prompt
+and then select hidden Administrator Account
+
+wmic logicaldisk get caption,description,filesystem
+
+color /?            - to get the list of color
+color 3           to change the color
+
+ rename 1.txt "FirstOne.txt" & dir        renames first fike to second and the displays
+ 
+ 
+ Copy files, folders from PC to USB
+ when ur PC is only accessible through CMD
+ 
+ wmic logicaldisk get caption,description,filesystem
+ 
+ if USB id E drive then
+ e: & dir         to display the files in  USB
+ 
+ copy 1.txt e:\"Folder1"
+ 
+ 
+ xcopy *.* e:\"Folder2"  /e /i
+ 
+ e for copying the directories and subdirectories, even the empty one
+ 
+ 
+ ipconfig for checking ip address
+ 
+ ipconfig /all     for checking mac address(Physical Address)(which makes it different from every other device )
+ 
+ 
+ tasklist        to see all the processes running
+ 
+ taskkill /pid 2580 /f          to kill the process with PID
+ 
+ taskkill /im chrome.exe /f   
+ 
+ 
+ tree /a          to display all folders in the current directory in tree format
+ 
+ tree /f          to display all files in the current directory in tree format
+ 
+ 
+ whoami	 	       		to display the username and computer
+ 
+ echo %userdomain% 		displays name of computer
+ 
+ echo %username%		displays username
+ 
+ systeminfo				displays system information
+ 
+ net user
+    &
+net localgroup administrators		for administrator user list
+
+================================================================================
+Kali
+
+macchanger -l >> mlist             Lists the mac addresses and put it in file mlist
+
+
+service network-manager stop
+
+ifconfig
+
+macchanger -s eth0
+macchanger -r eth0
+
+macchanger -m 00:00:e2:d6:89:74 eth0      (First 6 digits are taken for Acer from mlist and last 6 are which are created after macchanger -r eth0 )
+
+macchanger -m 00:00:e2:d6:89:74 lo
+
+nano /etc/hostname                   (change hostname from kali to user1)
+
+nano /etc/hosts                       (change from kali to user1)
+
+service network-manager start
+exit
+
+----------------------------------------------------------------------------
+
+cd /root && ls
+
+cd Desktop; ls
+
+mv c .c  		(makes file c as hidden file, same for folders also)
+
+
+mkdir Test Folder1    (creates 2 folders with name Test and Folder1)
+
+mkdir Test\ Folder     (Make Folder with name Test Folder , usually for spaces in folder name)
+
+cd Test\ Folder         (to move to the folder)
+
+rm File\ 1               (for deleting files)
+
+rm -r Folder             (For deleting folders)
+
+mv textfile test/textfile    (move textfile to test folder)
+
+less textfile              (to see file in page mode)
+
+touch file1.txt           (Can be used to create a empty file)
+
+firefox http://www.google.com
+
+
+kill 6030           (Pid of the process to kill)
+
+pkill firefox       (Name of the process to kill)
+
+xkill               (Click on the window that you want to kill)
+
+pgrep firefox.esr   (Gives the PID of firefox)
+
+cd ~ is equivalent to cd root
+
+du -sh Folder1       (For checking the size of the folder or file)
+
+find / -iname ".mlis*"
+
+find /root/Desktop -iname "*.png"          (Find file ending with .png)
+
+ls *.png                    (list all files with .png ext in current folder)
+
+
+
+1st digit changes permissions of administrative users.
+2nd digit changes permissions of user groups that you've created.
+3rd digit changes the permissions of the public.
+0 = no access
+2 = write only
+3 = write & execute
+4 = read only
+5 = read & execute
+6 = read & write
+7 = full access
+
+
