@@ -54,5 +54,12 @@ TCP header comprises of the following fields:
 =============================================================================
 
 Denial of Service
-A DoS attack is an attempt by a hacker to flood a user's or an organization's system
+A DoS attack is an attempt by a hacker to flood a user's or an organization's system.
+
+Session hijacking is a hacking method that creates a temporary Dos for an end user when an attacker takes over the session.
+Session hoghjacking is used by hackers to take iver a current session after the user has established an authenticated session.
+it can also be used to perpetrate a man in the middle attack, where the hacker steps between the server and client and intercepts all trafic
+
+
+
 
