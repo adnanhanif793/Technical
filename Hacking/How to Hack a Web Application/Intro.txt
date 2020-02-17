@@ -1,1 +1,38 @@
+Bypass Restriction and validation of input
+
 Disable and required can be removed in html and tried to check whether backend validation is there or not
+
+
+Session Hijacking
+
+URL can be hit for users who are not authorized for accessing a particular page
+
+
+CSRF Attack (Cross-site request forgery)
+
+in firefox header can be edit and resend, this way user and password or other things can be changed and resend
+
+
+XSS Attack:
+
+we are injecting javascript code and HTML in client side. Like entering in text box. eg:
+<script>alert(1)</script>
+<img src="Path of image" />
+
+
+SQL Injection
+ 
+1-select * from login where userName='admin' and password='h' or '1'='1'
+
+2-select * from login where userName='admin' and password='a'; drop table user; --
+
+
+
+Denial of Service (DoS)
+
+Server is not able to servce more clients as many requests are coming to the server
+
+
+Server Fingerprinting
+
+A way by which attaker knows what type of server is being used, what OS is running
