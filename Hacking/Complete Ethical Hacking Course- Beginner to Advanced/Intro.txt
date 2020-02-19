@@ -1,0 +1,25 @@
+less filename         (to display file in new workspace within the terminal and q to quit)
+
+cat sources.list | grep src     (it will only print lines which hav src in them)
+
+cat sources.list | grep -i src   (i is for ignore case)
+
+
+echo "I am alive" > test         (replace the content of test with input)
+
+
+touch file1 file2 file3          (quick way of creating files)
+
+
+chmod +x test.txt                 (making file executable)
+
+rm -r folder1                     (remove directory)
+
+rm --help                         (help for rm command)
+man rm                            (for manual on rm)
+
+
+install tor browser
+
+adduser test                     (its not recommended to browse internet using root user)              
+
