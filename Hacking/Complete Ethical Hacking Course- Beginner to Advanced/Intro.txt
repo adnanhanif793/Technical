@@ -23,3 +23,25 @@ install tor browser
 
 adduser test                     (its not recommended to browse internet using root user)              
 
+test/test  (created new user)
+
+
+==============================================================================================
+
+
+
+cp -Rv /home/Downloads/DVWA /var/www/html      (R for recursive and v for verbose ie details)
+
+
+service apache2 start
+service apache2 status
+
+service mysql start
+service mysql status
+
+
+mysql -h localhost -u root                 (add -p if password is not set)
+
+
+
+
