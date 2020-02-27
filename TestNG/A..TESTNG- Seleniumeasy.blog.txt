@@ -1,0 +1,2989 @@
+
+-TestNG Introduction
+--------------------
+
+-Its a framework for unit testing to E2E testing
+-Test method name need not start with Test
+-Uses annotation for marking the tests 
+-You can group tests with Group annotation and execute only specific group
+-You can parameterize the tests with Data Providers
+
+Annotations in TestNG
+---------------------
+
+@BeforeSuite: This annotation method will execute before all tests in this suite
+
+@AfterSuite:This annotation method will execute after all tests in this suite
+
+@BeforeTest: This annotation method will execute before any test method belonging to the classes inside the Test tag is executed.
+
+@AfterTest: This annotation method will execute after all the test methods belonging to the classes inside the Test tag have executed.
+
+@BeforeGroups: The list of groups that this configuration method will execute before. This method is guaranteed to execute shortly before the first test method that belongs to any of these groups is invoked.
+
+@AfterGroups: The list of groups that this configuration method will execute after. This method is guaranteed to execute shortly after the last test method that belongs to any of these groups is invoked.
+
+@BeforeClass: This annotation method will execute before the first test method in the current class is invoked.
+
+@AfterClass: This annotation method will execute after all the test methods in the current class have been executed.
+
+@BeforeMethod: This annotation method will execute before each test method.
+
+@AfterMethod:The annotated method will be executed after each test method.
+   
+Example Program
+----------------
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class TesNGExample 
+{
+
+	@BeforeTest
+	public void openDBConnection()
+	{
+		System.out.println("I will execute Before any Test method/case executes");
+	}
+
+	@AfterTest
+	public void CloseDBConnection()
+	{
+		System.out.println("I will execute After all Test method/case executes");
+	}
+
+	@Test
+	public void testCase01()
+	{
+		System.out.println("Im in first testcase");
+	}
+
+	@Test
+	public void testCase02()
+	{
+		System.out.println("Im in second testcase");
+	}
+
+	@Test
+	public void testCase03()
+	{
+		System.out.println("Im in third testcase");
+	}
+
+	@BeforeMethod
+	public void openBrowser()
+	{
+		System.out.println("I will be executed before Each Test Method");	
+	}
+
+	@AfterMethod
+	public void CloseBrowser()
+	{
+		System.out.println("I will be executed After Each Test Method");
+	}
+}
+
+//Output 
+I will execute Before any Test method/case executes
+
+I will be executed before Each Test Method
+Im in first testcase
+I will be executed After Each Test Method
+
+I will be executed before Each Test Method
+Im in second testcase
+I will be executed After Each Test Method
+
+I will be executed before Each Test Method
+Im in third testcase
+I will be executed After Each Test Method
+
+I will execute After all Test method/case executes
+
+PASSED: testCase01
+PASSED: testCase02
+PASSED: testCase03
+
+-How to Install TestNG step by step ( 3 ways we can install the TestNG)
+-----------------------------------------------------------------------
+
+1st way
+------- 
+
+1) In Eclipse, Go to 'Help' -> 'Install New Software'
+2) Enter the URL (http://beust.com/eclipse/)  in the 'Work with' field and click add button
+3) Enter the name as TestNG and say OK
+4) It will search and display TestNG and follow the rest of the steps and complete the installation
+
+How to check the installation complete in Eclipse?
+
+1) From menu 'Window' -> 'Show View' -> 'Other' -> Find 'TestNG' under 'Java' 
+
+2nd way
+-------
+1) In Eclipse, Go to 'Help' -> 'Eclipse Marketplace...'
+1) Enter 'TestNG' in the Find field. Search and Install it
+
+3rd way
+-------
+1) Maven Dependency in Maven Project (For deatails, pls. check Selenium Notes) 
+
+
+-TestNG Test Case Priority
+--------------------------
+
+- 'Priority' in TestNG decides the execution order of the test cases ( Priority of Zero is executed first, then Priority 1 and ...)
+
+- Add the attribute priority in @Test annotation  as @Test(priority=??)
+
+- Default value is 0
+
+Example Program
+---------------
+
+import org.testng.annotations.Test;
+
+public class testNGPriorityExample 
+{
+	@Test
+	public void registerAccount()
+	{
+		System.out.println("First register your account");
+	}
+
+	@Test(priority=2)
+	public void sendEmail()
+	{
+		System.out.println("Send email after login");
+	}
+
+	@Test(priority=1)
+	public void login()
+	{
+		System.out.println("Login to the account after registration");
+	}
+
+}
+
+//Output
+
+First, registerAccount()
+Second, login()
+Third, sendEmail()
+
+
+-Timeout Test in TestNG
+-----------------------
+
+- When the tests are taking more time to complete, we can time out them with the @Test attribute timeOut
+
+- The syntax is @Test(timeOut=1000) where 1000 is in milliseconds
+
+Example Program
+---------------
+
+import org.testng.annotations.Test;
+
+public class TestNGExamples 
+{
+	@Test
+	public void sampleTestCase()
+	{
+		System.out.println("Im ready to execute");
+	}
+
+	@Test(timeOut=1000) // specify time in milliseconds
+	public void executetimeOut() throws InterruptedException
+	{
+		Thread.sleep(3000);
+             // Thread.sleep(500);
+	}
+}
+ 
+//Output
+
+SampleTestCase() passes where as executetimeOut() fails with the following exception : 
+Error – org.testng.internal.thread.ThreadTimeoutException: Method org.testng.internal.TestNGMethod.executePass() didn't finish within the time-out 1000
+
+
+TestNG XML example to execute with package names
+------------------------------------------------
+
+- If you need to execute all the test classes in a package, then we can mention the package name in the testng.xml
+- If there are more than one packages are avilable and we need to execute the tests in few packages, we can use this mechanism
+
+Example
+------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="example suite 1" verbose="1" >
+  <test name="Regression suite 1" >
+    <packages>
+      <package name="com.first.example" />
+   </packages>
+ </test>
+</suite>
+
+
+-Exception Test in TestNG
+-------------------------
+
+- The expected results from the test can be an exception. We can mention the type of exception and if its thrown in the test, the test passes 
+
+- Example Syntx : @Test(expectedExceptions=ArithmeticException.class)
+
+Example
+--------
+
+//This test passes since it throws the same exception expected
+@Test(expectedExceptions=ArithmeticException.class)
+public void dividedByZeroExample1()
+{
+	int e = 1/0;
+}
+
+
+//This test fails
+@Test
+public void dividedByZeroExample2()
+{
+	int e = 1/0;
+}
+
+
+- Disabling a test
+-------------------
+
+- By enabing and disabling 'enabled' attribute in @Test, we can enable or disable a test 
+
+Syntax 	: 	@Test(enabled=false) 
+
+
+-Skipping a Test by throwing exception SkipException 
+-----------------------------------------------------
+- We can skip a test by throwing SkipException. This skip can be conditional
+
+Syntax	: new SkipException("message");	 
+
+Example 
+-------
+
+package packOne;
+
+import org.testng.SkipException;
+import org.testng.annotations.Test;
+public class SkipExample 
+{
+	//Test is diabled	
+	@Test(enabled=false)
+	public void testCaseEnabling()
+	{
+		System.out.println("I'm Not Ready, please don't execute me");
+	}
+	
+	//Directly skipping the test
+	@Test
+	public void testCaseSkipException()
+	{
+		System.out.println("Im in skip exception");
+		throw new SkipException("Skipping this exception");
+	}
+
+	//Contitionally skip the test
+	@Test
+	public void testCaseConditionalSkipException()
+	{
+		System.out.println("Im in Conditional Skip");
+		if(!DataAvailable)
+			throw new SkipException("Skipping this exception");
+		System.out.println("Executed Successfully");
+	}
+
+}
+
+-TestNG XML example to execute Multiple Classes
+----------------------------------------------
+
+- We can mention multiple class names in different packages in testng.xml for execution
+
+- We need to specify the class names along with packages in between the classes tags
+
+Example
+--------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="example suite 1" verbose="1" >
+  <test name="Regression suite 1" >
+    <classes>
+      <class name="com.first.example.demoOne"/>
+      <class name="com.first.example.demoTwo"/>
+      <class name="com.second.example.demoThree"/>
+    </classes>
+ </test>
+</suite>
+
+
+
+-Groups in TestNG
+-----------------
+
+- We can group the tests with 'groups' paramtere in @Test
+
+- We can execute the groups we want to execute without recompiling the tests 
+
+Syntax 	: 	@Test(groups="Regression")
+
+Example
+-------
+
+package com.example.group;
+import org.testng.annotations.Test;
+
+public class groupExamples 
+{
+	@Test(groups="Regression")
+	public void testCaseOne()
+	{
+		System.out.println("Im in testCaseOne - And in Regression Group");
+	}
+	
+	@Test(groups="Regression")
+	public void testCaseTwo()
+	{
+		System.out.println("Im in testCaseTwo - And in Regression Group");
+	}
+	
+	@Test(groups="Smoke Test")
+	public void testCaseThree()
+	{
+		System.out.println("Im in testCaseThree - And in Smoke Test Group");
+	}
+	
+	@Test(groups="Regression")
+	public void testCaseFour()
+	{
+		System.out.println("Im in testCaseFour - And in Regression Group");
+	}
+}
+
+
+testng.xml
+----------
+
+?xml version="1.0" encoding="UTF-8"?>
+<suite name="Sample Suite">
+  <test name="testing">
+  	<groups>
+      		<run>
+        		<include name="Regression"/>
+      		</run>
+    	</groups>
+    	<classes>
+       		<class name="com.example.group.groupExamples" />
+    	</classes>
+  </test>
+</suite>
+
+DataProvider in TestNG
+-----------------------
+
+- @DataProvider marks a method as supplying data to a test method
+
+- The annotated method must return an Object[][] where each Object[] can be assigned the parameter list of the test method. 
+
+- The @Test method that wants to receive data from this DataProvider needs to use a dataProvider name equals to the name of this annotation.
+
+- @DataProvder can have an attribute 'name' which mentions the name of the Data provider. If the name is not mentioned,  the name of this data provider will automatically be set to the name of the method
+
+Example
+-------
+
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class DataProviderExample
+{
+	
+	//This test method declares that its data should be supplied by the Data Provider
+	// "getdata" is the function name which is passing the data
+       // Number of columns should match the number of input parameters
+	@Test(dataProvider="getData")
+	public void setData(String username, String password)
+	{
+		System.out.println("you have provided username as::"+username);
+		System.out.println("you have provided password as::"+password);
+	}
+
+	@DataProvider
+	public Object[][] getData()
+	{
+	//Rows - Number of times your test has to be repeated.
+	//Columns - Number of parameters in test data.
+	Object[][] data = new Object[3][2];
+
+	// 1st row
+	data[0][0] ="sampleuser1";
+	data[0][1] = "abcdef";
+
+	// 2nd row
+	data[1][0] ="testuser2";
+	data[1][1] = "zxcvb";
+	
+	// 3rd row
+	data[2][0] ="guestuser3";
+	data[2][1] = "pass123";
+
+	return data;
+	}
+}
+
+Assertions in TestNG
+--------------------
+
+- Assertion verifies the condition of the tests and decide whether to fail the test or not
+
+- A test is considered successful ONLY if it is completed without throwing any exception
+
+- TestNG supports assertion of a test using the Assert class and Assertion plays an important role when testing an application
+
+ - When the test fails, it fails with java.lang.AssertionError: expected [expectedMessage] but found [actualMessage]
+
+
+Example
+-------
+
+//Test passes
+@Test
+public void testCaseVerifyHomePage() 
+{
+	driver= new FirefoxDriver();
+	driver.navigate().to("http://google.com");
+	Assert.assertEquals("Google", driver.getTitle());
+}
+
+//Test fails
+@Test
+public void testCaseVerifyHomePage() 
+{
+	driver= new FirefoxDriver();
+	driver.navigate().to("http://google.com");
+	Assert.assertEquals("Goooooooogle", driver.getTitle());
+}
+
+Few Methods Supported by Assertion class
+----------------------------------------
+
+------------------------------------
+
+assertEquals(String actual,String expected) 
+
+assertEquals(String actual,String expected, String message) 
+
+assertEquals(boolean actual,boolean expected) 
+
+assertEquals(java.util.Collection actual, java.util.Collection expected, java.lang.String message) 
+
+assertTrue(condition) 
+
+assertTrue(condition, message) 
+
+assertFalse(condition) 
+
+assertFalse(condition, message) 
+
+------------------------------------
+
+//:- It takes two string arguments and checks whether both are equal, if not it will fail the test.
+assertEqual(String actual,String expected) 
+
+//:- It takes three string arguments and checks whether both are equal, if not it will fail the test and throws the message which we provide.
+assertEqual(String actual,String expected, String message) 
+
+//:- It takes two boolean arguments and checks whether both are equal, if not it will fail the test.
+assertEquals(boolean actual,boolean expected) 
+
+//:- Takes two collection objects and verifies both collections contain the same elements and with the same order. if not it will fail the test with the given message.
+assertEquals(java.util.Collection actual, java.util.Collection expected, java.lang.String message) 
+
+//:- It takes one boolean arguments and checks that a condition is true, If it isn't, an AssertionError is thrown.
+Assert.assertTrue(condition) 
+
+/:- It takes one boolean argument and String message. It Asserts that a condition is true. If it isn't, an AssertionError, with the given message, is thrown.
+Assert.assertTrue(condition, message) 
+
+//:- It takes one boolean arguments and checks that a condition is false, If it isn't, an AssertionError is thrown.
+Assert.assertFalse(condition) 
+
+//:- It takes one boolean argument and String message. It Asserts that a condition is false. If it isn't, an AssertionError, with the given message, is thrown.
+Assert.assertFalse(condition, message) 
+
+
+-Preserver Order in Testng
+--------------------------
+
+- Usually, TestNG will execute the tests in the order they found in the testng.xml.
+
+- If you want your classes / methods to be run in an unpredictable order, then we should go for preserve-order attribute in testng
+
+- In TestNg bydefault the preserve-order attribute will be set to 'true', this means, TestNG will run your tests in the order they are found in the XML file.
+
+
+Example
+-------
+
+We will try to execute the below example, by taking three classes. For the first one, We will set the preserve-order attribute to false and check for the the Output.
+
+Create three classes as
+ClassOne.java
+ClassTwo.java
+ClassThree.java
+
+//Class One
+package com.pack.preserve;
+import org.testng.annotations.Test;
+
+public class ClassOne 
+{
+
+	@Test
+	public void firstTestCase() {
+		System.out.println("im in first test case from ClassOne Class");
+	}
+
+}
+
+
+//Class Two
+package com.pack.preserve;
+import org.testng.annotations.Test;
+
+public class ClassTwo {
+
+	@Test
+	public void firstTestCase() {
+		System.out.println("im in first test case from ClassTwo Class");
+	}
+
+}
+
+//Class Three
+package com.pack.preserve;
+import org.testng.annotations.Test;
+ 
+public class ClassThree {
+
+	@Test
+	public void firstTestCase() 
+	{
+		System.out.println("im in first test case from ClassThree Class");
+	}
+}
+
+testng.xml
+----------
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Preserve order test runs">
+  <test name="Regression 1" preserve-order="false">
+    <classes>
+      <class name="com.pack.preserve.ClassOne"/>
+      <class name="com.pack.preserve.ClassTwo"/>
+      <class name="com.pack.preserve.ClassThree"/>
+    </classes>
+  </test>
+</suite>
+
+//Output
+ They will get executed in an unpredictable order. We have ClassOne, ClassTwo and ClassThree defined in xml, but the order that they executed are ClassOne, ClassThree, and ClassTwo. 
+
+
+testng.xml
+----------
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Preserve order test runs">
+  <test name="Regression 1" preserve-order="true">
+    <classes>
+      <class name="com.pack.preserve.ClassOne"/>
+      <class name="com.pack.preserve.ClassTwo"/>
+      <class name="com.pack.preserve.ClassThree"/>
+    </classes>
+  </test>
+</suite>
+
+//Output
+We have ClassOne, ClassTwo and ClassThree defined in xml, they executed are ClassOne, ClassTwo and ClassThree
+
+
+-Parallel Execution of Classes in TestNG
+---------------------------------------
+
+- TestNG provides an ability to run test classes in parallel. By using parallel execution of classes, each class will be started and executed simultaneously in different threads.
+
+Syntax	:	parallel=classes in <suite> tag
+
+Example
+--------
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parallel test suite" parallel="classes" thread-count="2">
+  <test name="Test 1">
+    <classes>
+      <class name="com.parallel.TestParallelClassOne"/>
+      <class name="com.parallel.TestParallelClassTwo"/>
+    </classes>
+  </test>
+</suite>
+
+Note : 
+1) thread-count attribute determines the no. of parallel threads
+2) The order of test execution may change every time since The thread scheduler dispatches the various threads on the available processors, and each thread gets some processor time, each in his turn. But the processor, the order and the time assigned to each thread is up to the OS thread scheduler, and we does not guarantee the order of execution.
+
+
+- TestNG supports parallel execution of tests like classes 
+-----------------------------------------------------------------------
+Example (tests in parallel)
+----------------------------
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parallel test suite" parallel="tests" thread-count="2">
+  <test name="Test 1">
+    <classes>
+      <class name="com.parallel.TestParallelClassOne"/>
+      <class name="com.parallel.TestParallelClassTwo"/>
+    </classes>
+  </test>
+  <test name="Test 2">
+    <classes>
+      <class name="com.parallel.TestParallelClassOne"/>
+      <class name="com.parallel.TestParallelClassTwo"/>
+    </classes>
+  </test>
+</suite>
+
+
+- TestNG supports parallel execution of methods 
+-----------------------------------------------------------------------
+Example (methods in parallel)
+----------------------------
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parallel test suite" parallel="methods" thread-count="2">
+  <test name="Test 1">
+    <classes>
+      <class name="com.parallel.TestParallelClassOne"/>
+      <class name="com.parallel.TestParallelClassTwo"/>
+    </classes>
+  </test>
+</suite>
+
+-Parameterization in TestNG using testng.xml
+---------------------------------------------
+
+- TestNG allows us to pass values to test methods as arguments by using parameter annotations through testng.xml
+
+- By using this feature, we can pass the values at run time through testng.xml rather than hard coding them in tests 
+
+- Examples of parameter : user name and password, browser name, etc
+
+- Syntax 	: 	@Parameters({ "browser" })		//The no of arguments in the parameter determines the no. of arguments in the method signature
+
+- The @Parameters annotation can be placed on any method that has a @Test, @Before/After or @Factory annotation.
+
+- In testng.xml, parameter values can be set at both suite and test level. The best practice is define at the suite level and override them at the test level which will take precedence
+ 
+
+Example 1
+----------
+
+package com.parameterization;
+
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class TestParameters 
+{
+	
+	@Parameters({ "browser" })
+	@Test
+	public void testCaseOne(String browser) 
+	{
+		System.out.println("browser passed as :- " + browser);
+	}
+
+	@Parameters({ "username", "password" })
+	@Test
+	public void testCaseTwo(String username, String password) 
+	{
+		System.out.println("Parameter for User Name passed as :- " + username);
+		System.out.println("Parameter for Password passed as :- " + password);
+	}
+}
+
+<!--testng.xml----->
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parameterization Test Suite">
+	<test name="Testing Parameterization">
+		<parameter name="browser" value="Firefox"/>
+		<parameter name="username" value="testuser"/>
+		<parameter name="password" value="testpassword"/>
+		<classes>
+			<class name="com.parameterization.TestParameters" />
+		</classes>
+	</test>
+</suite>
+
+
+
+Example 2
+----------
+
+package com.parameterization;
+
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class TestParameters 
+{
+	
+	//@Parameters({ "browser" })
+	@Test
+	public void testCaseOne(String browser) 
+	{
+		System.out.println("browser passed as :- " + browser);
+	}
+
+	@Parameters({ "username", "password" })
+	@Test
+	public void testCaseTwo(String username, String password) 
+	{
+		System.out.println("Parameter for User Name passed as :- " + username);
+		System.out.println("Parameter for Password passed as :- " + password);
+	}
+}
+
+<!--testng.xml----->
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parameterization Test Suite">
+	<test name="Testing Parameterization">
+		<parameter name="browser" value="Firefox"/>
+		<parameter name="username" value="testuser"/>
+		<parameter name="password" value="testpassword"/>
+		<classes>
+			<class name="com.parameterization.TestParameters" />
+		</classes>
+	</test>
+</suite>
+
+//output 
+
+org.testng.TESTNGException:
+Parameter 'browser' is required by @Test on method 'testCaseOne' but has not been marked @Optional in testng.xml
+
+
+
+Example 3
+----------
+
+package com.parameterization;
+
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class TestParameters 
+{
+	
+	@Parameters({ "browser" })
+	@Test
+	public void testCaseOne(String browser) 
+	{
+		System.out.println("browser passed as :- " + browser);
+	}
+
+	@Parameters({ "username", "password" })
+	@Test
+	//public void testCaseTwo(String username, String password) 
+	public void testCaseTwo(String username) 
+	{
+		System.out.println("Parameter for User Name passed as :- " + username);
+		System.out.println("Parameter for Password passed as :- " + password);
+	}
+}
+
+<!--testng.xml----->
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parameterization Test Suite">
+	<test name="Testing Parameterization">
+		<parameter name="browser" value="Firefox"/>
+		<parameter name="username" value="testuser"/>
+		<parameter name="password" value="testpassword"/>
+		<classes>
+			<class name="com.parameterization.TestParameters" />
+		</classes>
+	</test>
+</suite>
+
+//output 
+
+org.testng.TESTNGException:
+Parameter 'browser' is required by @Test on method 'testCaseOne' but has not been marked @Optional in testng.xml
+
+
+-Class level annotations in TestNG
+----------------------------------
+
+- We can annotate class with @Test. In this case, all the public methods will become tests 
+
+- We can still define @Test annotation on the public methods if we want to add any additional attributes
+
+NOTE: In the same way, we can also define groups "ex: @Test(groups = { "regression" })" at the class level and then add groups at the individual method level
+
+
+Example
+-------
+package com.example.classlevel;
+
+import org.testng.annotations.Test;
+
+@Test
+public class ClassLevelAnnotations 
+{
+
+	public void methodOne() 
+	{
+		System.out.println("Helloo.. Im in method adding numbers");
+	}
+
+	public void MethodTwo() 
+	{
+		System.out.println("Helloo.. Im in method divided by zero");
+		int e = 1 / 0;
+	}
+
+	@Test(dependsOnMethods={"MethodTwo"})
+	public void methodThree() 
+	{
+		System.out.println("Helloo.. Im in method skip");
+	}
+}
+
+//output
+In the above example we have added @Test annotation only to the last method with attribute 'dependsOnMethods'. methodThree() will be skipped as it depends on MethodTwo() which is failed due to ArithmeticException.
+
+
+-Multiple Tests with TestNG.XML
+-------------------------------
+
+- TestNG provides an option to execute multiple tests in a single configuration file (testng.xml). 
+- It allows to divide tests into different parts and group them in a single tests. 
+- We can group all the tests related to database into one group, Regression tests in one group. And all the test cases related to Unit test cases into one group and so on..
+
+Example 1
+--------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Sample Suite" verbose="1" >
+
+  <test name="Unit Level Test Cases" >
+    <classes>
+       -- Specify Class name here ---
+    </classes>
+  </test>
+
+  <test name="Regression Test Cases">
+    <classes>
+      -- Specify Class name here ---
+    </classes>
+  </test>
+
+</suite>
+
+Example 2
+----------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Sample Suite" verbose="1" >
+  <test name="Unit Level Test" >
+    <classes>
+       <class name=”com.easy.entry.AddTestCase" />
+	<class name=”com.easy.entry.EditTestCase" />
+    </classes>
+  </test>
+  <test name="Regression Test">
+    <classes>
+      	<class name=”com.easy.records.AddUserTestCase" />
+	<class name=”com.easy.records.DeleteUserTestCase" />
+    </classes>
+  </test>
+</suite>
+
+
+
+-Include and Exclude Test Methods in TestNG
+-------------------------------------------
+
+- TestNg provides an option to include or exclude (Test Methods, Classes, Packages and Groups) using include and exclude tags by defining in testng.xml
+						  --------------------------------------------
+
+Example of Test class 
+---------------------
+package com.easy.entry;
+import org.testng.annotations.Test;
+
+public class AddTestCase 
+{
+	@Test
+	public void addLocationTestCase() 
+	{
+		System.out.println("Im in add location test case");
+	}
+	
+	@Test
+	public void addDepartmentTestCase() 
+	{
+		System.out.println("Im in add department test case");
+	}
+	
+	@Test
+	public void addEmployeeTestCase() 
+	{
+		System.out.println("Im in add employee test case");
+	}
+} 		
+
+
+Example 1 (testng.xml)
+-----------------------
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Sample Test Suite" verbose="1" >
+  <test name="Method Test Cases" >
+    <classes>
+       <class name="com.easy.entry.AddTestCase">
+        <methods>
+        	<include name="addLocationTestCase" />
+     		<include name="addDepartmentTestCase" />
+       	 	<exclude name="addEmployeeTestCase" />
+      	</methods>
+       </class>
+    </classes>
+  </test>
+</suite>
+
+//output 
+This is straight foreward. This includes the test case addLocationTestCase and addDepartmentTestCase and excludes addEmployeeTestCase
+
+
+Example 2 (testng.xml)
+-----------------------
+
+If there are 20 test methods in a class, and if you want to exclude one or two test methods, you can just have exclude tag with test methods without again adding all the other tests methods using include tag
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Sample Test Suite" verbose="1" >
+  <test name="Method Test Cases" >
+    <classes>
+       <class name="com.easy.entry.AddTestCase">
+        <methods>
+       	 	<exclude name="addEmployeeTestCase" />
+      	</methods>
+       </class>
+    </classes>
+  </test>
+</suite>
+
+//output 
+This only excludes addEmployeeTestCase and includes all other test cases in the test class
+
+Example 3 (testng.xml)
+-----------------------
+
+If there are 20 test methods in a class, and if you want to include one or two test methods, you can just have include tag with test methods and not to mention any other methods
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Sample Test Suite" verbose="1" >
+  <test name="Method Test Cases" >
+    <classes>
+       <class name="com.easy.entry.AddTestCase">
+        <methods>
+       	 	<include name="addDepartmentTestCase" />
+      	</methods>
+       </class>
+    </classes>
+  </test>
+</suite>
+
+//output 
+This only include addDepartmentTestCase and exclude others 
+
+NOTE : In the same way we can also use include and exclude tags for Groups, Classes and Packages
+
+
+-Logging with TestNG using Listeners
+------------------------------------
+
+- TestNG provides Listeners to modify default TestNG's behaviors. Example : Adding more Logs etc
+
+- You can either extend 'TestListenerAdapter' or implement Interface 'ITestListener' which is a listener for test running
+
+- In this example, We have extended TestListenerAdapter which intern implements ITestListener with empty methods. So again we don't have to override other methods from the ITestListener interface which we may not needed.
+
+
+Important Methods 
+---------------------
+
+OnTestStart 
+OnTestSuccess 
+OnTestFailure 
+OnTestSkipped 
+OnTestFinish 
+
+
+//: Invoked each time before a test will be invoked.
+OnTestStart 
+
+//: Invoked each time a test succeeds.
+OnTestSuccess 
+
+//: Invoked each time a test fails. We can implement any logic that you want to do when a test fails, Normally most of them prefer taking screen shots when a test fails.
+OnTestFailure 
+
+//: Invoked each time a test is skipped.
+OnTestSkipped 
+
+//: Invoked after all the tests have run and all their Configuration methods have been called.  
+OnTestFinish 
+
+
+Example
+-------
+
+package com.example.logging;
+
+import org.testng.IClass;
+import org.testng.ITestResult;
+import org.testng.TestListenerAdapter;
+
+public class ListenerClass extends TestListenerAdapter 
+{
+
+	@Override
+	public void onTestStart(ITestResult tr) 
+	{
+		log("Test Started....");
+	}
+
+	@Override
+	public void onTestSuccess(ITestResult tr) 
+	{
+
+		log("Test '" + tr.getName() + "' PASSED");
+
+		// This will print the class name in which the method is present
+		log(tr.getTestClass());
+
+		// This will print the priority of the method.
+		// If the priority is not defined it will print the default priority as
+		// 'o'
+		log("Priority of this method is " + tr.getMethod().getPriority());
+
+		System.out.println(".....");
+	}
+
+	@Override
+	public void onTestFailure(ITestResult tr) 
+	{
+
+		log("Test '" + tr.getName() + "' FAILED");
+		log("Priority of this method is " + tr.getMethod().getPriority());
+		System.out.println(".....");
+	}
+
+	@Override
+	public void onTestSkipped(ITestResult tr) 
+	{
+		log("Test '" + tr.getName() + "' SKIPPED");
+		System.out.println(".....");
+	}
+
+	private void log(String methodName) 
+	{
+		System.out.println(methodName);
+	}
+
+	private void log(IClass testClass) 
+	{
+		System.out.println(testClass);
+	}
+}
+
+testng.xml
+-----------
+!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Log Suite Example" verbose="1">
+	<listeners>
+		<listener class-name="com.example.logging.ListenerClass" />
+	</listeners>
+
+	<test name="TestNG logs sample" preserve-order="true">
+		<classes>
+			<class name="com.example.logging.LoggingClass">
+				<methods>
+					<include name="methodAddingNumbers" />
+					<include name="dividedByZero" />
+					<include name="methodSkip" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+</suite>
+
+
+
+-Configuring ReportNG with TestNG for HTML Reports
+--------------------------------------------------
+
+- ReportNG is a simple plug-in for the TestNG unit-testing framework to generate HTML reports as a replacement for the default TestNG HTML reports
+
+- This is done through listeners 
+
+Step 1 : Download and Add required files to the project
+
+reportng-1.1.4.jar
+velocity-dep-1.4.jar
+guice-3.0.jar
+
+
+Step2 : Disable the default TestNG Listeners
+
+1. Right Click on Properties
+2. Click on TestNG
+3. You will find an option as "Disable default listeners", check the checbox
+4. Click on "Apply" button, it will show as message as "Project preferences are saved".
+5. Now Click on "OK" button.
+
+Step 3: We need to add the below two listeners to testng.xml file. 
+
+<listeners>
+      <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+      <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+</listeners>
+
+Finally testng.xml file should look as the below for the given example
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Suite1" verbose="1" >
+<listeners>
+      <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+      <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+  </listeners>
+  <test name="Regression Test Suite"   >
+    <packages>
+      <package name="packOne" />
+      <package name="packTwo" />
+   </packages>
+ </test>
+</suite>
+
+Step 4 : Execute the tests and Refresh the project folder.
+
+You wlll find 'html' under 'test-output' and click on Index.html file to view the Report Generated By ReportNG
+
+
+-Optional annotation in TestNG
+-------------------------------
+
+- We know that parameter values can be passed from testng.xml. In case if they are not passed, we can provide a default value in the test method so that the test goes fine
+
+Syntax 
+------
+
+@Parameters("browser")
+@Test
+public void openBrowser(@Optional("firefox") String value) { ... }
+
+
+Example 1 
+-----------
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Sample Test Suite" verbose="1" >
+  <parameter name="param one" value="First parameter" />
+  <parameter name="param two" value="Second parameter" />
+  <test name="Method Test Cases" >
+    <classes>
+       <class name="com.easy.param.OptionalParamExample" />
+    </classes>
+  </test>
+</suite>
+
+
+package com.easy.param;
+
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class OptionalParamExample 
+{
+
+	@Parameters("param one")
+	@Test
+	public void testOptionParamOne(String paramOne) 
+	{
+
+		System.out.println("Parameter passed from XML ::" + paramOne);
+	}
+
+	@Parameters("param two")
+	@Test
+	public void testOptionParamTwo(@Optional("IamOptional") String paramTwo) 
+	{
+		System.out.println("Optional value passed ::" + paramTwo);
+	}
+}
+ 
+//output
+
+Parameter passed from XML ::First parameter
+Optional value passed ::Second parameter
+
+===============================================
+Sample Test Suite
+Total tests run: 2, Failures: 0, Skips: 0
+=============================================== 
+
+
+
+Example 2 
+-----------
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Sample Test Suite" verbose="1" >
+  <parameter name="param one" value="First parameter" /> 
+    <!--<parameter name="param two" value="Second parameter" /> -->
+  <test name="Method Test Cases" >
+    <classes>
+       <class name="com.easy.param.OptionalParamExample" />
+    </classes>
+  </test>
+</suite>
+
+
+package com.easy.param;
+
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class OptionalParamExample 
+{
+
+	@Parameters("param one")
+	@Test
+	public void testOptionParamOne(String paramOne) 
+	{
+
+		System.out.println("Parameter passed from XML ::" + paramOne);
+	}
+
+	@Parameters("param two")
+	@Test
+	public void testOptionParamTwo(@Optional("IamOptional") String paramTwo) 
+	{
+		System.out.println("Optional value passed ::" + paramTwo);
+	}
+}
+ 
+//output
+
+Parameter passed from XML ::First parameter
+Optional value passed ::IamOptional
+
+===============================================
+Sample Test Suite
+Total tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+-Execute Testng.xml from command line
+--------------------------------------
+
+We can execute testng.xml file in different ways.
+
+1. From IDE (Eclipse/InteliJ)
+3. Ant / Maven
+4. Command Line
+5. Batch File
+
+Now let us see how to invoke testng.xml from command line step by step:
+
+cd F:\Selenium\SampleTestNG
+java -cp F:\Selenium\SampleTestNG\lib\*;F:\Selenium\SampleTestNG\bin org.testng.TestNG testng.xml
+
+
+-Execute Testng.xml using batch file
+-------------------------------------
+
+- A batch file (.bat) is used in DOS and Windows, which is an unformatted text file that consists of a series of commands to be executed by the command line interpreter.
+
+Example of Batch file
+-----------------------
+
+set projectLocation=F:\Selenium\TestNGBatchExample			// Note the no space between the = sign
+cd %projectLocation%
+set classpath=%projectLocation%\bin;%projectLocation%\lib\*
+java org.testng.TestNG %projectLocation%\testng.xml
+pause									//Added 'pause' statement to prevent auto-closing of console after the execution and will wait for user input before closing
+
+
+
+-Retry executing only Failed Tests using TestNG
+-----------------------------------------------
+
+- There are many reasons a Test case may fail and how to rerun them for X no. of times until it passes
+
+- To achieve this we need to implement TestNG IRetryAnalyzer
+
+
+Step 1 : Create the implementation of RetryAnalyzer by implementing IRetryAnalyzer. Override the method public boolean retry(ITestResult result) 
+---------------------------------------------------------------------------------------------------------------------------------------------------
+package com.pack.test;
+
+import org.testng.IRetryAnalyzer;
+import org.testng.ITestResult;
+
+public class Retry implements IRetryAnalyzer 
+{
+    	private int retryCount = 0;
+    	private int maxRetryCount = 1;
+
+	// Below method returns 'true' if the test method has to be retried else 'false' and it takes the 'Result' as parameter of the test method that just ran
+    	public boolean retry(ITestResult result) 
+	{
+        	if (retryCount < maxRetryCount) 
+		{
+            		System.out.println("Retrying test " + result.getName() + " with status "+ getResultStatusName(result.getStatus()) + " for the " + (retryCount+1) + " time(s).");
+            		retryCount++;
+            		return true;
+        	}
+        	return false;
+    	}
+    
+    	public String getResultStatusName(int status) 
+	{
+    		String resultName = null;
+    		if(status==1)
+    			resultName = "SUCCESS";
+    		if(status==2)
+    			resultName = "FAILURE";
+    		if(status==3)
+    			resultName = "SKIP";
+		return resultName;
+    	}
+}
+
+Step 2 : Set this RetryAnalyzer (Retry) to IAnnotationTransformer  	
+-----------------------------------------------------------------
+
+package com.pack.test;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+import org.testng.IAnnotationTransformer;
+import org.testng.IRetryAnalyzer;
+import org.testng.annotations.ITestAnnotation;
+
+public class RetryListener implements IAnnotationTransformer 
+{
+	@Override
+	public void transform(ITestAnnotation testannotation, Class testClass, Constructor testConstructor, Method testMethod)	
+	{
+		IRetryAnalyzer retry = testannotation.getRetryAnalyzer();
+
+		if (retry == null)	
+		{
+			testannotation.setRetryAnalyzer(Retry.class);
+		}
+
+	}
+}
+
+
+Step 3 : Create a Test which fails so that we can test our implementation. In the below test verifyForgotPasswordPage, We are trying to verify the wrong text which will return False and the Test fails. 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+package com.pack.test;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class TestNGExampleTests 
+{
+	WebDriver driver;
+	String baseURL = "https://www.linkedin.com/";
+
+	@BeforeClass
+	public void setup() 
+	{
+		driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+	}
+
+	@Test(priority=1)
+	public void verifyLoginPageText() 
+	{
+		driver.navigate().to(baseURL);
+		System.out.println("Verify login page test started");
+		WebElement element = driver.findElement(By.cssSelector(".header>h2"));
+		String headerText = element.getText();
+		Assert.assertEquals(headerText, "Get started – it’s free.");
+	}
+
+	@Test(priority=2)
+	public void verifyForgotPasswordPage() 
+	{
+		driver.navigate().to(baseURL);
+		System.out.println("Verify Forgot password page test started");
+		WebElement element = driver.findElement(By.linkText("Forgot your password?"));
+		element.click();
+		WebElement pageTextElement = driver.findElement(By.cssSelector(".flow-login-content>fieldset>h1"));
+		String pageText = pageTextElement.getText();
+		Assert.assertEquals(pageText, "Wrong text");
+		//Assert.assertEquals(pageText, "Change your password");
+	}
+}
+
+Step 4 : Add the following listener to the testng.xml
+-----------------------------------------------------
+
+<listeners>
+	<listener class-name="com.pack.test.RetryListener"/>
+</listeners>
+
+Step 5: Check the output of the execution
+-----------------------------------------
+
+//output
+
+[TestNG] Running:
+  D:\Selenium\TestNgSample\testng.xml
+
+Verify login page test started
+Verify Forgot password page test started
+Retrying test verifyForgotPasswordPage with status FAILURE for the 1 time(s).
+Verify Forgot password page test started
+
+===============================================
+Parallel test runs
+Total tests run: 3, Failures: 2, Skips: 0
+===============================================
+
+The verifyForgotPasswordPage test will be executed for two times as we have defined 'maxRetryCount = 1', hence when the test fails, it will execute again for one time. Now the total count of tests it will show as 3, Failures 2. But actually we have only two tests. To handle this we need to adjust the count by implementing 'ITestListener' and update the count from 'onFinish' method (Below Example)
+
+
+-TestNG Tests Run Count after Retry.
+----------------------------------
+
+In the previous example, the count of the tests run was changing based on the maxRetryCountvalue. To over come that, we need to add the below code snippet for onFinish method by implementing 'ITestListener'
+
+
+Step 1 : Override onFinish() method in ITestListener 
+----------------------------------------------------
+
+package com.pack.test;
+
+import java.util.Set;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestNGMethod;
+import org.testng.ITestResult;
+
+public class TestListener implements ITestListener 
+{
+	@Override
+	public void onFinish(ITestContext context) 
+	{
+		Set<ITestResult> failedTests = context.getFailedTests().getAllResults();
+		for (ITestResult temp : failedTests) 
+		{
+			ITestNGMethod method = temp.getMethod();
+			if (context.getFailedTests().getResults(method).size() > 1) 
+			{
+				failedTests.remove(temp);
+			} 
+			else 
+			{
+				if (context.getPassedTests().getResults(method).size() > 0) 
+				{
+					failedTests.remove(temp);
+				}
+			}
+		}
+	}
+  
+    	public void onTestStart(ITestResult result) {   }
+		
+    	public void onTestSuccess(ITestResult result) {   }
+  
+    	public void onTestFailure(ITestResult result) {   }
+
+    	public void onTestSkipped(ITestResult result) {   }
+
+    	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {   }
+
+    	public void onStart(ITestContext context) {   }
+}  
+
+Step2 : Add the Listener to the testng.xml file
+----------------------------------------------
+
+<listeners>
+	<listener class-name="com.pack.test.TestListener"/>
+</listeners>
+
+
+//Output
+
+[TestNG] Running:
+  D:\Selenium\TestNgSample\testng.xml
+
+Verify login page test started
+Verify Forgot password page test started
+Retrying test verifyForgotPasswordPage with status FAILURE for the 1 time(s).
+Verify Forgot password page test started
+
+===============================================
+Parallel test runs
+Total tests run: 2, Failures: 1, Skips: 0
+===============================================
+
+Note the test count as 2 instead of 3
+
+
+-Taking ScreenShot ONLY for Failed Tests
+------------------------------------------
+
+Step 1: Create Listener
+-----------------------
+
+package com.pack.listeners;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
+import com.pack.sample.TestBase;
+
+public class TestListener implements ITestListener 
+{
+	WebDriver driver=null;
+	String filePath = "D:\\SCREENSHOTS";
+    	
+	@Override
+    	public void onTestFailure(ITestResult result) 
+	{
+    		System.out.println("***** Error "+result.getName()+" test has failed *****");
+    		String methodName=result.getName().toString().trim();
+    		takeScreenShot(methodName);
+    	}
+    
+    	public void takeScreenShot(String methodName) 
+	{
+    		//get the driver
+    		driver=TestBase.getDriver();
+    	 	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+         	//The below method will save the screen shot in d drive with test method name 
+            	try 
+		{	
+			FileUtils.copyFile(scrFile, new File(filePath+methodName+".png"));
+			System.out.println("***Placed screen shot in "+filePath+" ***");
+		} catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+    	}
+	
+	public void onFinish(ITestContext context) {}
+  
+   	public void onTestStart(ITestResult result) {   }
+  
+    	public void onTestSuccess(ITestResult result) {   }
+
+    	public void onTestSkipped(ITestResult result) {   }
+
+    	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {   }
+
+    	public void onStart(ITestContext context) {   }
+}  
+
+
+Step2 : Add Listener in TestNg.xml
+-----------------------------------
+<listeners>
+       <listener class-name="com.pack.listeners.TestListener"/>
+</listeners>
+
+
+-Take Screenshot and place it in a folder with Test Class name
+--------------------------------------------------------------
+package com.pack.listeners;
+
+import java.io.File;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+import org.testng.ITestResult;
+import org.testng.TestListenerAdapter;
+
+import com.pack.sample.TestBase;
+
+public class TestListener extends TestListenerAdapter 
+{
+	WebDriver driver;
+	private static String fileSeperator = System.getProperty("file.separator");
+
+	@Override
+	public void onTestFailure(ITestResult result) 
+	{
+		System.out.println("***** Error " + result.getName() + " test has failed *****");
+
+		driver = TestBase.getDriver();
+
+		String testClassName = getTestClassName(result.getInstanceName()).trim();
+
+		String testMethodName = result.getName().toString().trim();
+		String screenShotName = testMethodName + ".png";
+
+		if (driver != null) 
+		{
+			String imagePath = ".." + fileSeperator + "Screenshots"
+					+ fileSeperator + "Results" + fileSeperator + testClassName
+					+ fileSeperator
+					+ takeScreenShot(driver, screenShotName, testClassName);
+			System.out.println("Screenshot can be found : " + imagePath);
+		}
+	}
+
+	public static String takeScreenShot(WebDriver driver, String screenShotName, String testName) 
+	{
+		try 
+		{
+			File file = new File("Screenshots" + fileSeperator + "Results");
+			if (!file.exists()) 
+			{
+				System.out.println("File created " + file);
+				file.mkdir();
+			}
+
+			File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			File targetFile = new File("Screenshots" + fileSeperator + "Results" + fileSeperator + testName, screenShotName);
+			FileUtils.copyFile(screenshotFile, targetFile);
+
+			return screenShotName;
+		} catch (Exception e) 
+		{
+			System.out.println("An exception occured while taking screenshot " + e.getCause());
+			return null;
+		}
+	}
+
+	public String getTestClassName(String testName) 
+	{
+		String[] reqTestClassname = testName.split("\\.");
+		int i = reqTestClassname.length - 1;
+		System.out.println("Required Test Name : " + reqTestClassname[i]);
+		return reqTestClassname[i];
+	}
+
+}
+
+
+-IMethodInterceptor examples to reorder list of test methods
+------------------------------------------------------------
+
+- IMethodInterceptor is used to alter/modify the list of test methods to be executed by TestNG. 
+
+- IMethodInterceptor interface which has just one method to implement 'intercept(...)' 
+
+- Override this method and reorder the list of test methods and return thr new instance of list of <IMethodInstance>
+
+- TestNG will now run these test methods in the same order which is found in the returned list
+
+
+IMethodInterceptor definition
+
+public interface IMethodInterceptor 
+{
+  List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context);
+}
+
+
+How to achieve the new list of IMethodInterceptor
+---------------------------------------------------
+
+public class TestSortInterceptor implements IMethodInterceptor 
+{
+	public List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context) 
+	{
+    		List<IMethodInstance> result = new ArrayList<IMethodInstance>();
+    		for (IMethodInstance method : methods) 
+		{
+          		if(<logic to order tests goes here>)  
+			{
+             			result.add(method);
+          		}
+    		}
+ 		return result;
+	}
+
+}
+
+Example 1 - Executes only tests with specified Priority 1 ("testMethod.priority() == 1")
+-------------------------------------------------------------------------------------------
+Step1: IMethodInterceptor implementation
+
+package com.easy;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.testng.IMethodInstance;
+import org.testng.IMethodInterceptor;
+import org.testng.ITestContext;
+import org.testng.annotations.Test;
+
+//Implementation of IMethodInterceptor
+public class PriorityInterceptor implements IMethodInterceptor 
+{
+
+	@Override
+	public List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context) 
+	{
+		List<IMethodInstance> result = new ArrayList<IMethodInstance>();
+		for (IMethodInstance method : methods) 
+		{
+			Test testMethod = method.getMethod().getConstructorOrMethod().getMethod().getAnnotation(Test.class);
+			if (testMethod.priority() == 1) 
+			{
+				result.add(method);
+			}
+		}
+		return result;
+	}
+}
+
+
+Step2: Tests with different priorities
+
+//Test class with different priorities
+package com.easy;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class TestA 
+{
+	
+	@BeforeClass
+	public void setUp() 
+	{
+		System.out.println("Before class A");
+	}
+
+	@Test(priority=3, groups={"smoke"})
+	public void testcase1() 
+	{
+		System.out.println("A test one - priority 3");
+	}
+	
+	@Test(priority=2, groups={"regression"})
+	public void testcase2() 
+	{
+		System.out.println("A - test two - priority 2");
+	}
+
+	@Test(priority=1, groups="smoke")
+	public void testcase3() 
+	{
+		System.out.println("A test three - priority 1");
+	}
+
+	@Test(priority=2, groups="UI")
+	public void testcase4() 
+	{
+		System.out.println("A test four - priority 2");
+	}
+}
+
+
+//2nd test class
+package com.easy;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class TestB
+{
+	
+	@BeforeClass
+	public void setUp() 
+	{
+		System.out.println("Before class B");
+	}
+
+	@Test(priority=3, groups="smoke")
+	public void testcase1() 
+	{
+		System.out.println("B test one - priority 3");
+	}
+	
+	@Test(priority=2, groups="UI")
+	public void testcase2() 
+	{
+		System.out.println("B test two - priority 2");
+	}
+
+	@Test(priority=1, groups={"smoke", "regression"})
+	public void testcase3() 
+	{
+		System.out.println("B test three - priority 1");
+	}
+}
+
+ Step 3 :- Add the Listener to testng.xml file
+
+<listeners>
+	<listener class-name="com.easy.PriorityInterceptor" />
+</listeners>
+
+
+//Output 
+
+[TestNG] Running:
+  F:\Selenium\Easy\TestNGMethodInterceptor\testng.xml
+
+Before class A
+A test three - priority 1
+Before class B
+B test three - priority 1
+
+===============================================
+Suite1
+Total tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+Example 2 - Executes only tests with specified Priority 1 ("testMethod.priority() == 1") and group 'Regression' (groups.contains("regression") ) 
+-------------------------------------------------------------------------------------------
+Step1: IMethodInterceptor implementation
+
+package com.easy;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.testng.IMethodInstance;
+import org.testng.IMethodInterceptor;
+import org.testng.ITestContext;
+import org.testng.annotations.Test;
+
+public class PriorityInterceptor implements IMethodInterceptor 
+{
+
+	@Override
+	public List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context) 
+	{
+		List<IMethodInstance> result = new ArrayList<IMethodInstance>();
+		for (IMethodInstance method : methods) 
+		{
+			Test testMethod = method.getConstructorOrMethod().getMethod().getAnnotation(Test.class);
+			Set<String> groups = new HashSet<String>();
+			for (String group : testMethod.groups()) 
+			{
+			      groups.add(group);
+			}
+			
+		if (testMethod.priority() == 1 && groups.contains("regression")) 
+			{
+				result.add(method);
+			}
+		}
+		return result;
+	}
+}
+
+
+
+-Customize TestNG html Report (http://www.seleniumeasy.com/testng-tutorials/testng-customize-emailable-html-report-example)
+-----------------------------
+
+- When ever we execute tests with TestNG, it will generate a default html report with basic information. 
+
+- TestNG provides IReporter interface using which we can create a customized report 
+
+- We need to override  'generateReport()' method which will be invoked after all the suite has completed its execution and gives the report into the specified output directory
+
+Syntax 
+------
+
+//XmlSuite is a class describes the tag <suite> in testng.xml
+//ISuite is an interface defining a Test Suite.
+generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputFileDirectory)
+
+package com.easy;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+
+import org.testng.IInvokedMethod;
+import org.testng.IReporter;
+import org.testng.IResultMap;
+import org.testng.ISuite;
+import org.testng.ISuiteResult;
+import org.testng.ITestClass;
+import org.testng.ITestContext;
+import org.testng.ITestNGMethod;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+import org.testng.collections.Lists;
+import org.testng.internal.Utils;
+import org.testng.xml.XmlSuite;
+
+/**
+ * Created by VISISHTA.
+ */
+public class TestNGCustomReportListener implements IReporter
+{
+
+	private PrintWriter writer;
+	private int m_row;
+	private Integer m_testIndex;
+	private int m_methodIndex;
+	private String reportTitle= "TestNG Customized Report";
+	private String reportFileName = "custom-report.html";
+
+	/** Creates summary of the run */
+	@Override
+	public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outdir) 
+	{
+		try 
+		{
+			writer = createWriter(outdir);
+		} catch (IOException e) 
+		{
+			System.err.println("Unable to create output file");
+			e.printStackTrace();
+			return;
+		}
+
+		startHtml(writer);
+		writeReportTitle(reportTitle);
+		generateSuiteSummaryReport(suites);
+		generateMethodSummaryReport(suites);
+		generateMethodDetailReport(suites);
+		endHtml(writer);
+		writer.flush();
+		writer.close();
+	}
+
+	protected PrintWriter createWriter(String outdir) throws IOException 
+	{
+		new File(outdir).mkdirs();
+		return new PrintWriter(new BufferedWriter(new FileWriter(new File(outdir, reportFileName))));
+	}
+
+	/**
+	 * Creates a table showing the highlights of each test method with links to
+	 * the method details
+	 */
+	protected void generateMethodSummaryReport(List<ISuite> suites) 
+	{
+		m_methodIndex = 0;
+		startResultSummaryTable("methodOverview");
+		int testIndex = 1;
+		for (ISuite suite : suites) 
+		{
+			if (suites.size() >= 1) 
+			{
+				titleRow(suite.getName(), 5);
+			}
+	
+			Map<String, ISuiteResult> r = suite.getResults();
+			for (ISuiteResult r2 : r.values()) 
+			{
+				ITestContext testContext = r2.getTestContext();
+				String testName = testContext.getName();
+				m_testIndex = testIndex;
+				resultSummary(suite, testContext.getFailedConfigurations(), testName, "failed", " (configuration methods)");
+				resultSummary(suite, testContext.getFailedTests(), testName, "failed", "");
+				resultSummary(suite, testContext.getSkippedConfigurations(), testName, "skipped", " (configuration methods)");
+				resultSummary(suite, testContext.getSkippedTests(), testName, "skipped", "");
+				resultSummary(suite, testContext.getPassedTests(), testName, "passed", "");
+				testIndex++;
+			}
+		}
+		writer.println("</table>");
+	}
+   
+	/** Creates a section showing known results for each method */
+	protected void generateMethodDetailReport(List<ISuite> suites) 
+	{
+		m_methodIndex = 0;
+		for (ISuite suite : suites) 
+		{
+			Map<String, ISuiteResult> r = suite.getResults();
+			for (ISuiteResult r2 : r.values()) 
+			{
+				ITestContext testContext = r2.getTestContext();
+				if (r.values().size() > 0) 
+				{
+					writer.println("<h1>" + testContext.getName() + "</h1>");
+				}
+				resultDetail(testContext.getFailedConfigurations());
+				resultDetail(testContext.getFailedTests());
+				resultDetail(testContext.getSkippedConfigurations());
+				resultDetail(testContext.getSkippedTests());
+				resultDetail(testContext.getPassedTests());
+			}
+		}
+	}
+
+	/**
+	 * @param tests
+	 */
+	private void resultSummary(ISuite suite, IResultMap tests, String testname, String style, String details) 
+	{
+		
+		if (tests.getAllResults().size() > 0) 
+		{
+			StringBuffer buff = new StringBuffer();
+			String lastClassName = "";
+			int mq = 0;
+			int cq = 0;
+			for (ITestNGMethod method : getMethodSet(tests, suite)) 
+			{
+				m_row += 1;
+				m_methodIndex += 1;
+				ITestClass testClass = method.getTestClass();
+				String className = testClass.getName();
+				if (mq == 0) 
+				{
+					String id = (m_testIndex == null ? null : "t"
+							+ Integer.toString(m_testIndex));
+					titleRow(testname + " &#8212; " + style + details, 5, id);
+					m_testIndex = null;
+				}
+				if (!className.equalsIgnoreCase(lastClassName)) 
+				{
+					if (mq > 0) 
+					{
+						cq += 1;
+						writer.print("<tr class="" + style
+								+ (cq % 2 == 0 ? "even" : "odd") + "">"
+								+ "<td");
+						if (mq > 1) 
+						{
+							writer.print(" rowspan="" + mq + """);
+						}
+						writer.println(">" + lastClassName + "</td>" + buff);
+					}
+					mq = 0;
+					buff.setLength(0);
+					lastClassName = className;
+				}
+				Set<ITestResult> resultSet = tests.getResults(method);
+				long end = Long.MIN_VALUE;
+				long start = Long.MAX_VALUE;
+				long startMS=0;
+				String firstLine="";
+				
+				for (ITestResult testResult : tests.getResults(method)) 
+				{
+					if (testResult.getEndMillis() > end) 
+					{
+						end = testResult.getEndMillis()/1000;
+					}
+					if (testResult.getStartMillis() < start) 
+					{
+						startMS = testResult.getStartMillis();
+						start =startMS/1000;
+					}
+					
+					Throwable exception=testResult.getThrowable();
+					boolean hasThrowable = exception != null;
+					if(hasThrowable)
+					{
+						String str = Utils.stackTrace(exception, true)[0];
+						Scanner scanner = new Scanner(str);
+						firstLine = scanner.nextLine();
+					}
+				}
+				DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
+				Calendar calendar = Calendar.getInstance();
+			    	calendar.setTimeInMillis(startMS);
+			     
+				mq += 1;
+				if (mq > 1) 
+				{
+					buff.append("<tr class="" + style + (cq % 2 == 0 ? "odd" : "even") + "">");
+				}
+				String description = method.getDescription();
+				String testInstanceName = resultSet
+						.toArray(new ITestResult[] {})[0].getTestName();
+				buff.append("<td><a href="#m"
+						+ m_methodIndex
+						+ "">"
+						+ qualifiedName(method)
+						+ " "
+						+ (description != null && description.length() > 0 ? "(""
+						+ description + "")"
+						: "")
+						+ "</a>"
+						+ (null == testInstanceName ? "" : "<br>("
+						+ testInstanceName + ")") + "</td>"
+						+ "<td class="numi" style="text-align:left;padding-right:2em">" + firstLine+"<br/></td>"
+						+ "<td style="text-align:right">" + formatter.format(calendar.getTime()) + "</td>" 
+						+ "<td class="numi">"+ timeConversion(end - start) + "</td>" + "</tr>");
+				
+			}
+			if (mq > 0) 
+			{
+				cq += 1;
+				writer.print("<tr class="" + style + (cq % 2 == 0 ? "even" : "odd") + "">" + "<td");
+				if (mq > 1) 
+				{
+					writer.print(" rowspan="" + mq + """);
+				}
+				writer.println(">" + lastClassName + "</td>" + buff);
+			}
+		}
+	}
+    
+	
+	private String timeConversion(long seconds) 
+	{
+
+	    final int MINUTES_IN_AN_HOUR = 60;
+	    final int SECONDS_IN_A_MINUTE = 60;
+
+	    int minutes = (int) (seconds / SECONDS_IN_A_MINUTE);
+	    seconds -= minutes * SECONDS_IN_A_MINUTE;
+
+	    int hours = minutes / MINUTES_IN_AN_HOUR;
+	    minutes -= hours * MINUTES_IN_AN_HOUR;
+
+	    return prefixZeroToDigit(hours) + ":" + prefixZeroToDigit(minutes) + ":" + prefixZeroToDigit((int)seconds);
+	}
+	
+	private String prefixZeroToDigit(int num)
+	{
+		int number=num;
+		if(number<=9){
+			String sNumber="0"+number;
+			return sNumber;
+		}
+		else
+			return ""+number;
+		
+	}
+	
+	/** Starts and defines columns result summary table */
+	private void startResultSummaryTable(String style) 
+	{
+		tableStart(style, "summary");
+		writer.println("<tr><th>Class</th>" + "<th>Method</th><th>Exception Info</th><th>Start Time </th><th>Execution Time<br/>				(hh:mm:ss)</th></tr>");
+		m_row = 0;
+	}
+
+	private String qualifiedName(ITestNGMethod method) 
+	{
+		StringBuilder addon = new StringBuilder();
+		String[] groups = method.getGroups();
+		int length = groups.length;
+		if (length > 0 && !"basic".equalsIgnoreCase(groups[0])) 
+		{
+			addon.append("(");
+			for (int i = 0; i < length; i++) 
+			{
+				if (i > 0) 
+				{
+					addon.append(", ");
+				}
+				addon.append(groups[i]);
+			}
+			addon.append(")");
+		}
+
+		return "<b>" + method.getMethodName() + "</b> " + addon;
+	}
+
+	private void resultDetail(IResultMap tests) 
+	{
+		Set<ITestResult> testResults=tests.getAllResults();
+		List<ITestResult> testResultsList = new ArrayList<ITestResult>(testResults);
+		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
+		System.setProperty("java.util.Collections.useLegacyMergeSort", "true");
+		Collections.sort(testResultsList, new TestResultsSorter());
+		for (ITestResult result : testResultsList) 
+		{
+			ITestNGMethod method = result.getMethod();
+			m_methodIndex++;
+			String cname = method.getTestClass().getName();
+			writer.println("<h2 id="m" + m_methodIndex + "">" + cname + ":"
+					+ method.getMethodName() + "</h2>");
+			Set<ITestResult> resultSet = tests.getResults(method);
+			generateResult(result, method, resultSet.size());
+			writer.println("<p class="totop"><a href="#summary">back to summary</a></p>");
+
+		}
+	}
+
+	private void generateResult(ITestResult ans, ITestNGMethod method,int resultSetSize) 
+	{
+		Object[] parameters = ans.getParameters();
+		boolean hasParameters = parameters != null && parameters.length > 0;
+		if (hasParameters) 
+		{
+			tableStart("result", null);
+			writer.print("<tr class="param">");
+			for (int x = 1; x <= parameters.length; x++) 
+			{
+				writer.print("<th>Param." + x + "</th>");
+			}
+			writer.println("</tr>");
+			writer.print("<tr class="param stripe">");
+			for (Object p : parameters) 
+			{
+				writer.println("<td>" + Utils.escapeHtml(Utils.toString(p))
+						+ "</td>");
+			}
+			writer.println("</tr>");
+		}
+		List<String> msgs = Reporter.getOutput(ans);
+		boolean hasReporterOutput = msgs.size() > 0;
+		Throwable exception = ans.getThrowable();
+		boolean hasThrowable = exception != null;
+		if (hasReporterOutput || hasThrowable) 
+		{
+			if (hasParameters) 
+			{
+				writer.print("<tr><td");
+				if (parameters.length > 1) 
+				{
+					writer.print(" colspan="" + parameters.length + """);
+				}
+				writer.println(">");
+			} 
+			else 
+			{
+				writer.println("<div>");
+			}
+			if (hasReporterOutput) 
+			{
+				if (hasThrowable) 
+				{
+					writer.println("<h3>Test Messages</h3>");
+				}
+				for (String line : msgs) 
+				{
+					writer.println(line + "<br/>");
+				}
+			}
+			if (hasThrowable) 
+			{
+				boolean wantsMinimalOutput = ans.getStatus() == ITestResult.SUCCESS;
+				if (hasReporterOutput) 
+				{
+					writer.println("<h3>"
+							+ (wantsMinimalOutput ? "Expected Exception"
+									: "Failure") + "</h3>");
+				}
+				generateExceptionReport(exception, method);
+			}
+			if (hasParameters) 
+			{
+				writer.println("</td></tr>");
+			} 
+			else 
+			{
+				writer.println("</div>");
+			}
+		}
+		if (hasParameters) 
+		{
+			writer.println("</table>");
+		}
+	}
+
+	protected void generateExceptionReport(Throwable exception, ITestNGMethod method) 
+	{
+		writer.print("<div class="stacktrace">");
+		writer.print(Utils.stackTrace(exception, true)[0]);
+		writer.println("</div>");
+	}
+
+	/**
+	 * Since the methods will be sorted chronologically, we want to return the
+	 * ITestNGMethod from the invoked methods.
+	 */
+	private Collection<ITestNGMethod> getMethodSet(IResultMap tests, ISuite suite) 
+	{
+		
+		List<IInvokedMethod> r = Lists.newArrayList();
+		List<IInvokedMethod> invokedMethods = suite.getAllInvokedMethods();
+		for (IInvokedMethod im : invokedMethods) 
+		{
+			if (tests.getAllMethods().contains(im.getTestMethod())) 
+			{
+				r.add(im);
+			}
+		}
+		
+		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
+		System.setProperty("java.util.Collections.useLegacyMergeSort", "true");
+		Collections.sort(r,new TestSorter());
+		List<ITestNGMethod> result = Lists.newArrayList();
+		
+		// Add all the invoked methods
+		for (IInvokedMethod m : r) 
+		{
+			for (ITestNGMethod temp : result) 
+			{
+				if (!temp.equals(m.getTestMethod()))
+					result.add(m.getTestMethod());
+			}
+		}
+		
+		// Add all the methods that weren't invoked (e.g. skipped) that we
+		// haven't added yet
+		Collection<ITestNGMethod> allMethodsCollection=tests.getAllMethods();
+		List<ITestNGMethod> allMethods=new ArrayList<ITestNGMethod>(allMethodsCollection);
+		Collections.sort(allMethods, new TestMethodSorter());
+		
+		for (ITestNGMethod m : allMethods) 
+		{
+			if (!result.contains(m)) 
+			{
+				result.add(m);
+			}
+		}
+		return result;
+	}
+
+	@SuppressWarnings("unused")
+	public void generateSuiteSummaryReport(List<ISuite> suites) 
+	{
+		tableStart("testOverview", null);
+		writer.print("<tr>");
+		tableColumnStart("Test");
+		tableColumnStart("Methods<br/>Passed");
+		tableColumnStart("# skipped");
+		tableColumnStart("# failed");
+		tableColumnStart("Browser");
+		tableColumnStart("Start<br/>Time");
+		tableColumnStart("End<br/>Time");
+		tableColumnStart("Total<br/>Time(hh:mm:ss)");
+		tableColumnStart("Included<br/>Groups");
+		tableColumnStart("Excluded<br/>Groups");
+
+		writer.println("</tr>");
+		NumberFormat formatter = new DecimalFormat("#,##0.0");
+		int qty_tests = 0;
+		int qty_pass_m = 0;
+		int qty_pass_s = 0;
+		int qty_skip = 0;
+		long time_start = Long.MAX_VALUE;
+		int qty_fail = 0;
+		long time_end = Long.MIN_VALUE;
+		m_testIndex = 1;
+		for (ISuite suite : suites) 
+		{
+			if (suites.size() >= 1) 
+			{
+				titleRow(suite.getName(), 10);
+			}
+			Map<String, ISuiteResult> tests = suite.getResults();
+			for (ISuiteResult r : tests.values()) 
+			{
+				qty_tests += 1;
+				ITestContext overview = r.getTestContext();
+				
+				startSummaryRow(overview.getName());
+				int q = getMethodSet(overview.getPassedTests(), suite).size();
+				qty_pass_m += q;
+				summaryCell(q, Integer.MAX_VALUE);
+				q = getMethodSet(overview.getSkippedTests(), suite).size();
+				qty_skip += q;
+				summaryCell(q, 0);
+				q = getMethodSet(overview.getFailedTests(), suite).size();
+				qty_fail += q;
+				summaryCell(q, 0);
+				
+				// Write OS and Browser
+				summaryCell(suite.getParameter("browserType"), true);
+				writer.println("</td>");
+							
+				SimpleDateFormat summaryFormat = new SimpleDateFormat("hh:mm:ss");
+				summaryCell(summaryFormat.format(overview.getStartDate()),true);				
+				writer.println("</td>");
+				
+				summaryCell(summaryFormat.format(overview.getEndDate()),true);
+				writer.println("</td>");
+
+				time_start = Math.min(overview.getStartDate().getTime(), time_start);
+				time_end = Math.max(overview.getEndDate().getTime(), time_end);
+				summaryCell(timeConversion((overview.getEndDate().getTime() - overview.getStartDate().getTime()) / 1000), true);
+				
+				summaryCell(overview.getIncludedGroups());
+				summaryCell(overview.getExcludedGroups());
+				writer.println("</tr>");
+				m_testIndex++;
+			}
+		}
+		if (qty_tests > 1) 
+		{
+			writer.println("<tr class="total"><td>Total</td>");
+			summaryCell(qty_pass_m, Integer.MAX_VALUE);
+			summaryCell(qty_skip, 0);
+			summaryCell(qty_fail, 0);
+			summaryCell(" ", true);
+			summaryCell(" ", true);
+			summaryCell(" ", true);
+			summaryCell(timeConversion(((time_end - time_start) / 1000)), true);
+			writer.println("<td colspan="3">&nbsp;</td></tr>");
+		}
+		writer.println("</table>");
+	}
+    
+	
+	private void summaryCell(String[] val) 
+	{
+		StringBuffer b = new StringBuffer();
+		for (String v : val) 
+		{
+			b.append(v + " ");
+		}
+		summaryCell(b.toString(), true);
+	}
+
+	private void summaryCell(String v, boolean isgood) 
+	{
+		writer.print("<td class="numi" + (isgood ? "" : "_attn") + "">" + v
+				+ "</td>");
+	}
+
+	private void startSummaryRow(String label) 
+	{
+		m_row += 1;
+		writer.print("<tr"
+				+ (m_row % 2 == 0 ? " class="stripe"" : "")
+				+ "><td style="text-align:left;padding-right:2em"><a href="#t"
+				+ m_testIndex + ""><b>" + label + "</b></a>" + "</td>");
+		
+	}
+
+	private void summaryCell(int v, int maxexpected) 
+	{
+		summaryCell(String.valueOf(v), v <= maxexpected);
+	}
+
+	private void tableStart(String cssclass, String id) 
+	{
+		writer.println("<table cellspacing="0" cellpadding="0""
+				+ (cssclass != null ? " class="" + cssclass + """
+						: " style="padding-bottom:2em"")
+						+ (id != null ? " id="" + id + """ : "") + ">");
+		m_row = 0;
+	}
+
+	private void tableColumnStart(String label) 
+	{
+		writer.print("<th>" + label + "</th>");
+	}
+
+	private void titleRow(String label, int cq) 
+	{
+		titleRow(label, cq, null);
+	}
+
+	private void titleRow(String label, int cq, String id) 
+	{
+		writer.print("<tr");
+		if (id != null) 
+		{
+			writer.print(" id="" + id + """);
+		}
+		writer.println("><th colspan="" + cq + "">" + label + "</th></tr>");
+		m_row = 0;
+	}
+
+	protected void writeReportTitle(String title) 
+	{
+		writer.print("<center><h1>" + title + " - " + getDateAsString() + "</h1></center>");
+	}
+	
+
+	/*
+	 * Method to get Date as String
+	 */
+	private String getDateAsString() 
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		return dateFormat.format(date);
+	}
+	
+	/** Starts HTML stream */
+	protected void startHtml(PrintWriter out) 
+	{
+		out.println("<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">");
+		out.println("<html xmlns="http://www.w3.org/1999/xhtml">");
+		out.println("<head>");
+		out.println("<title>TestNG Report</title>");
+		out.println("<style type="text/css">");
+		out.println("table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}");
+		out.println("td,th {border:1px solid #009;padding:.25em .5em}");
+		out.println(".result th {vertical-align:bottom}");
+		out.println(".param th {padding-left:1em;padding-right:1em}");
+		out.println(".param td {padding-left:.5em;padding-right:2em}");
+		out.println(".stripe td,.stripe th {background-color: #E6EBF9}");
+		out.println(".numi,.numi_attn {text-align:right}");
+		out.println(".total td {font-weight:bold}");
+		out.println(".passedodd td {background-color: #0A0}");
+		out.println(".passedeven td {background-color: #3F3}");
+		out.println(".skippedodd td {background-color: #CCC}");
+		out.println(".skippedodd td {background-color: #DDD}");
+		out.println(".failedodd td,.numi_attn {background-color: #F33}");
+		out.println(".failedeven td,.stripe .numi_attn {background-color: #D00}");
+		out.println(".stacktrace {white-space:pre;font-family:monospace}");
+		out.println(".totop {font-size:85%;text-align:center;border-bottom:2px solid #000}");
+		out.println("</style>");
+		out.println("</head>");
+		out.println("<body>");
+		
+	}
+
+	/** Finishes HTML stream */
+	protected void endHtml(PrintWriter out) 
+	{
+		out.println("<center> TestNG Report </center>");
+		out.println("</body></html>");
+	}
+
+	// ~ Inner Classes --------------------------------------------------------
+	/** Arranges methods by classname and method name */
+	private class TestSorter implements Comparator<IInvokedMethod> 
+	{
+		// ~ Methods
+		// -------------------------------------------------------------
+
+		/** Arranges methods by classname and method name */
+		@Override
+		public int compare(IInvokedMethod obj1, IInvokedMethod obj2) 
+		{
+			int r = obj1.getTestMethod().getTestClass().getName().compareTo(obj2.getTestMethod().getTestClass().getName());
+			return r;
+		}
+	}
+	
+	private class TestMethodSorter implements Comparator<ITestNGMethod> 
+	{
+		@Override
+		public int compare(ITestNGMethod obj1, ITestNGMethod obj2) 
+		{
+			int r = obj1.getTestClass().getName().compareTo(obj2.getTestClass().getName());
+			if (r == 0) 
+			{
+				r = obj1.getMethodName().compareTo(obj2.getMethodName());
+			}
+			return r;
+		}
+	}
+
+	private class TestResultsSorter implements Comparator<ITestResult> 
+	{
+		@Override
+		public int compare(ITestResult obj1, ITestResult obj2) 
+		{
+			int result = obj1.getTestClass().getName().compareTo(obj2.getTestClass().getName());
+			if (result == 0) 
+			{
+				result = obj1.getMethod().getMethodName().compareTo(obj2.getMethod().getMethodName());
+			}
+			return result;
+		}
+	}
+
+}
+
+
+//Test1 - TestA
+
+package com.tests;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+/**
+ * Created by VISISHTA.
+ */
+public class TestA 
+{
+	
+	public WebDriver driver;
+	static String driverPath = "D:\\chromedriver\";
+	
+	@Parameters({ "browserType", "appURL" })
+	@BeforeClass
+	public void initializeTestBaseSetup(String browserType, String appURL) 
+	{
+		try 
+		{
+			setDriver(browserType, appURL);
+
+		} catch (Exception e) 
+		{
+			System.out.println("Error....." + e.getStackTrace());
+		}
+	}
+	
+	private void setDriver(String browserType, String appURL) 
+	{
+		switch (browserType) 
+		{
+			case "chrome":
+					driver = initChromeDriver(appURL);
+					break;
+			case "firefox":
+					driver = initFirefoxDriver(appURL);
+					break;
+			default:
+					System.out.println("browser : " + browserType + " is invalid, Launching Firefox as browser of choice..");
+					driver = initFirefoxDriver(appURL);
+		}
+	}
+
+	private static WebDriver initChromeDriver(String appURL) 
+	{
+		System.out.println("Launching google chrome with new profile..");
+		System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.navigate().to(appURL);
+		return driver;
+	}
+
+	private static WebDriver initFirefoxDriver(String appURL) 
+	{
+		System.out.println("Launching Firefox browser..");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.navigate().to(appURL);
+		return driver;
+	}
+
+	
+    	@Test
+    	public void firstTestCase() throws Exception 
+	{
+        	Thread.sleep(2000);
+        	System.out.println("im in first test case from ClassOne Class");
+        
+    	}
+
+    	@Test
+	public void secondTestCase() throws Exception 
+	{
+		Thread.sleep(1000);
+		System.out.println("im in second test case from ClassOne Class");
+		//Below statement will throw exception
+		WebElement ele = driver.findElement(By.id("test"));
+		ele.click();
+	}
+    
+    	@Test
+    	public void thirdTestCase() throws Exception 
+	{
+        	Thread.sleep(2000);
+        	System.out.println("im in first test case from ClassOne Class");
+    	}
+    
+    	@AfterClass
+    	public void tearDown() 
+	{
+    		if(driver!=null) 
+		{
+    			driver.quit();
+    		}
+    	}
+
+}
+
+
+// Test2 - Test B
+package com.tests;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+/**
+ * Created by VISISHTA.
+ */
+public class TestB 
+{
+
+    	@Test
+    	public void firstTestCase() throws Exception 
+	{
+        	Thread.sleep(2000);
+        	System.out.println("im in first test case from ClassTwo Class");
+    	}
+
+    	@Test
+    	public void secondTestCase() throws Exception  
+	{		
+		Thread.sleep(500);
+        	System.out.println("im in second test case from ClassTwo Class");
+        	Assert.fail("Failing this Test");
+    	}
+    
+    	@Test	
+    	public void thirdTestCase() throws Exception 
+	{
+        	Thread.sleep(2000);
+        	System.out.println("im in third test case from ClassTwo Class");
+    	}
+    
+    	@Test
+    	public void fourthTestCase() throws Exception 
+	{
+        	Thread.sleep(2000);
+        	System.out.println("im in fourth test case from ClassTwo Class");
+    	}
+    
+    	@Test
+    	public void fifthTestCase() throws Exception 
+	{
+        	Thread.sleep(2000);
+        	System.out.println("im in fifth test case from ClassTwo Class");
+    	}
+}
+
+
+//Test C
+package com.tests;
+
+import org.testng.SkipException;
+import org.testng.annotations.Test;
+
+/**
+ * Created by VISISHTA.
+ */
+public class TestC 
+{
+
+    	@Test
+    	public void firstTestCase() throws Exception 
+	{
+    		Thread.sleep(100);
+        	System.out.println("im in first test case from ClassThree Class");
+    	}
+
+    	@Test
+    	public void secondTestCase() throws Exception 
+	{
+    		Thread.sleep(5000);
+        	System.out.println("im in second test case from ClassThree Class");
+        	throw new SkipException("Skipping this test with exception");
+    	}
+}
+
+
+//testng.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Main Test Suite" verbose="5">
+	<parameter name="appURL" value="https://www.google.co.in/"/>
+	<parameter name="browserType" value="firefox"/>
+   	<listeners>		
+		<listener class-name="com.easy.TestNGCustomReportListener" />
+    	</listeners>
+    	
+	<test name="TestNG Test Group">
+        	<packages>
+            		<package name="com.tests" />
+        	</packages>
+    	</test>
+</suite>
+
+//output
+- Refresh the Project folder, Navigate to 'test-output' folder , Now you should find two reports 'custom-report.html' and ''emailable-report.html'
+- Here 'emailable-report.html' is default report generated by TestNG and 'custom-report.html' is customized report that we have generated.
+
+
+-Passing data to DataProvider from Excel sheet
+-----------------------------------------------
+package com.pack;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.testng.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
+public class ReadExcelDataProvider 
+{
+	public WebDriver driver;
+	public WebDriverWait wait;
+	String appURL = "https://www.linkedin.com/";
+	
+	//Locators
+	private By byEmail = By.id("session_key-login");
+	private By byPassword = By.id("session_password-login");
+	private By bySubmit = By.id("signin");
+	private By byError = By.id("global-alert-queue");
+	
+	@BeforeClass
+	public void testSetup() 
+	{
+		driver=new FirefoxDriver();
+		driver.manage().window().maximize();
+		wait = new WebDriverWait(driver, 5);
+	}
+	
+
+	@Test(dataProvider="empLogin")
+	public void VerifyInvalidLogin(String userName, String password) 
+	{
+		driver.navigate().to(appURL);
+		driver.findElement(byEmail).sendKeys(userName);
+		driver.findElement(byPassword).sendKeys(password);
+		//wait for element to be visible and perform click
+		wait.until(ExpectedConditions.visibilityOfElementLocated(bySubmit));
+		driver.findElement(bySubmit).click();
+		
+		//Check for error message
+		wait.until(ExpectedConditions.presenceOfElementLocated(byError));
+		String actualErrorDisplayed = driver.findElement(byError).getText();
+		String requiredErrorMessage = "Please correct the marked field(s) below.";
+		Assert.assertEquals(requiredErrorMessage, actualErrorDisplayed);
+		
+	}
+	
+	@DataProvider(name="empLogin")
+	public Object[][] loginData() 
+	{
+		Object[][] arrayObject = getExcelData("D:/sampledoc.xls","Sheet1");
+		return arrayObject;
+	}
+
+	/**
+	 * @param File Name
+	 * @param Sheet Name
+	 * @return
+	 */
+	public String[][] getExcelData(String fileName, String sheetName) 
+	{
+		String[][] arrayExcelData = null;
+		try 
+		{
+			FileInputStream fs = new FileInputStream(fileName);
+			Workbook wb = Workbook.getWorkbook(fs);
+			Sheet sh = wb.getSheet(sheetName);
+
+			int totalNoOfCols = sh.getColumns();
+			int totalNoOfRows = sh.getRows();
+			
+			arrayExcelData = new String[totalNoOfRows-1][totalNoOfCols];
+			
+			for (int i= 1 ; i < totalNoOfRows; i++) 
+			{
+
+				for (int j=0; j < totalNoOfCols; j++) 
+				{
+					arrayExcelData[i-1][j] = sh.getCell(j, i).getContents();
+				}
+
+			}
+		} catch (FileNotFoundException e) 
+		{
+			e.printStackTrace();
+		} catch (IOException e) 
+		{
+			e.printStackTrace();
+		} catch (BiffException e) 
+		{
+			e.printStackTrace();
+		}
+		return arrayExcelData;
+	}
+
+	@Test
+	public void tearDown() 
+	{
+		driver.quit();
+	}
+}
+

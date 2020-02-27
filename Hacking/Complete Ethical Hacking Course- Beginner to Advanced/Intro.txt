@@ -42,6 +42,38 @@ service mysql status
 
 mysql -h localhost -u root                 (add -p if password is not set)
 
+Password can be set by   SET PASSWORD FOR root@localhost=PASSWORD('test');
+
+
+create a copy of config.inc.php.dist with the name config.inc.php
+
+set the password in config file in DVWA
+
+-----------------------------------------------------------------------------------------------
+Note, if you are using MariaDB rather than MySQL (MariaDB is default in Kali), then you can't use the database root user, you must create a new database user. To do this, connect to the database as the root user then use the following commands:
+
+mysql> create database dvwa;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> grant all on dvwa.* to dvwa@localhost identified by 'dvwa';
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+
+You will then need to update the config file, the new entries will look like this:
+
+$_DVWA[ 'db_user' ] = 'dvwa';
+$_DVWA[ 'db_password' ] = 'dvwa';
+$_DVWA[ 'db_database' ] = 'dvwa';
+
+-----------------------------------------------------------------------------------------------
+
+check the README.md file for username and password
+
+burp suite configure options in proxy and same proxy setting in browser and remove the noproxy value
+
+Username - admin and paswword- password  is default for DVWA
 
 
 
