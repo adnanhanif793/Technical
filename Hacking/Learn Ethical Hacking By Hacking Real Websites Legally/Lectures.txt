@@ -1,0 +1,130 @@
+
+1-   <!--  --> is used for comments in HTML, so look for username, password etc in that, it might be that developers had forgotten that.
+
+2-  sometimes the username or password may be invisible, so check for that
+eg: <label for="password">Password <span style='color: rgba(0,0,0,0)'>is 60379701b9</span></label>
+here last 0 is for invisible  (if u try to select it, it will be highlighted)
+
+
+3- Check for javascript code, there might be some comparison where certain variable is used and the value of which u might find somewhere else in the document
+
+
+4-sometimes the username, password might be in some file and u might have to go to that location to get it.
+eg: url is https://defendtheweb.net/playground/intro4
+
+and password file is like this
+ <input type="hidden" name="passwordfile" id="passwordfile" value="../../extras/playground/9d2K4Fw.json" maxlength="" placeholder="" class="u-full-width" />
+
+then u have to combine url plus the location of the file to access the file
+
+https://defendtheweb.net/playground/intro4/../../extras/playground/9d2K4Fw.json
+
+
+
+5- There might be case where password prompts are coming, in that case look for prompt in javascript, password might be in that
+
+pass=prompt("Password","");
+        if (pass=="6c73b309b9") {
+            window.location.href="?password=6c73b309b9";
+        }
+		
+	
+
+	
+6- Somtimes u can edit html according to your will to show some data
+eg: <option value="jTman">jTman</option>
+Adding one more option in dropdown
+
+
+7-Check for robots.txt file by adding /robots.txt in url path, there u can find the path of the file where the username, password might be stored.
+
+
+8- There might be sometimes that hidden files are there which contains username and password and that too in binary format, so you might have to convert it into decimal, hexadecimal or ASCII using online converter
+
+
+Binary: 011000100111010101110010011011100110001001101100011000010111101001100101   ->Ascii- burnblaze
+Binary: 010011000111000000111001010001010100110100110010001101110100011101010010   ->Ascii- Lp9EM27GR
+
+
+9- There might be some case like reset password, where u can change the already present value in email and give ur email
+
+
+10- sometimes the password might be in hexcode, so we have to use hex decoder
+eg: \x39\x38\x66\x39\x30\x38\x65\x39\x34\x35 on using  hex decoder changes to 98f908e945
+
+
+
+11- Sometimes the url might have some query parameter which u might need to change
+
+eg: https://defendtheweb.net/playground/intro11?input
+
+when changed to 
+
+    https://defendtheweb.net/playground/intro11?output
+	
+	gives the password in page source
+	<pre><div class='center'>The password is: 7c47a5444a</div></pre>
+	
+	
+12- Sometimes the password might be in MD5 hash format, in that case u have to decrypt it 
+
+ <p>This one is simple, the password is <code>1c63129ae9db9c60c3e8aa94d3e00495</code></p>
+ 
+ On using a online MD5 decrypter it changes to 1qaz2wsx
+ 
+ 
+ 13- Sometimes there will be a file which will contain binary data, Binary data can be either image or music file or video files, so try opening it with paint and it might show the image
+ or try changing the extension of the file to jpg etc
+ 
+
+14- Sometimes the user agent might not be accepted, so you can change user agent by going to 3 dot in console, more tools and network condition. Here u can select custom user agent
+
+
+15- Hiding information in images is called as Steganography. This can be solved by opening the image in notepad and checking for useful information.
+
+
+
+16- In some cases u might want to use POST method to send some password or something. So u will have to write scripts for that.
+
+<form id="myform" action="https://defendtheweb.net/playground/http-method" method="POST">
+    <input type="hidden" name="password" value="9239550a47"/>
+</form>
+<script>
+    document.getElementById("myform").submit();
+</script>
+
+Create a new HTML file with this and hit, u have to change the CSRF and token value as it changes on each refresh. eg.
+
+<html>
+<head>
+
+      <meta name="csrf-token" content="062735f4b317394b7547c7002a6bb7386b4b60192e4e5b7099752036b5fc5a64">
+        
+      <meta name="site-static" content="https://zhr3.co.uk">
+        
+      <meta name="site-version" content="bd1e897">
+        
+      <meta name="sentry" content="https://c0d7211d33e24baca097e6f2e8fc33e2@sentry.io/1810260">
+
+</head>
+<body>
+<form id="myform" action="https://defendtheweb.net/playground/http-method" method="POST">
+	<input type="hidden" name="token" id="token" value="042b5abe3a34d6d1c5f34ef03d1996dd77e8db9c10fbdfc47cad13c6a0b7251f" maxlength="" placeholder="" class="u-full-width" />
+    <input type="hidden" name="password" value="9239550a47"/>
+</form>
+<script>
+    document.getElementById("myform").submit();
+</script>
+
+</body>
+</html>
+
+
+
+17- 
+
+	
+
+
+
+
