@@ -1,0 +1,4 @@
+API Error Codes
+
+
+Response codes should be amongst the following: ? 400 (BadRequest) ? This indicates that a portion of the request made to the API call was not valid or could not be processed in the current context. ? 401 (Unauthorized) ? This indicates that the authentication or authorization required for the API call did not pass. ? 404 (NotFound) ? This indicates that the resource being accessed does not exist. This might occur on GET or DELETE requests. ? 415 (UnsupportedMediaType) ? This indicates that the data type of some data in the request is not supported. ? 405 (MethodNotAllowed) ? This generally indicates that the HTTP Method (GET, PUT, POST or DELETE) is not valid for this resource URI. ? 500 (InternalServerError) ? This indicates that an internal server-side error has occurred. 

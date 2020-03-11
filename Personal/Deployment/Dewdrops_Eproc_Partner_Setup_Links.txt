@@ -1,0 +1,63 @@
+Partner Deployment Steps and Links:
+
+1. Start a jenkins build for the build to be pushed to jenkins:
+	a. Pipeline Name: Pipeline DewDrops eProc 18.06.1.1
+	b. Link: http://jenkins.zycus.net:7010/job/DewDrops%20eProc%2018.06.1.1/
+	
+2. Verify whether the build is present in Nexus
+	a. Nexus Link: http://192.168.1.215:8081/nexus/content/repositories/ZycusProductSnapShots/com/zycus/dewdrops-eproc/18.06.1.1-SNAPSHOT/
+	
+	BFF Repo - http://192.168.1.215:8081/nexus/content/repositories/npm-private/dewdrops-bff/-/
+3. Copy the Snapshot name
+4. Perform Tagging or Retagging
+	a. Link: http://gitlab.zycus.net/root/dewdrops-eproc/tags/18.06.1.1-SNAPSHOT_Partner_DewDrops-eProc
+5. Execute the pipeline for Git To Consul
+	a. Pipeline Name: Pipeline Git_To_Consul
+	b. Link: http://10.95.4.137:8080/job/Git_To_Consul/
+6. Execute the pipeline for Partner Deployment
+	a. Pipeline Name: Pipeline Deployment_process_Partner
+	b. Link: http://10.95.4.137:8080/view/Deployment/job/Deployment_process_Partner/
+	
+	Or
+	
+	http://10.95.4.137:8080/view/QCVMWARE/job/Deployment_Process_QCVMWARE/
+7. If Pipeline fails perform a rollback
+	a. Pipeline Name: Pipeline rollback_process
+	b. Link: http://10.95.4.137:8080/job/rollback_process/
+8. If Pipeline fails due to locks, then run the below pipeline
+	a. Pipeline Name: Pipeline Delete_HA_locks
+	b. Link: http://10.95.4.137:8080/job/Delete_HA_locks/
+	
+	
+	
+nginx_build_path
+18.06.1.1-SNAPSHOT_Partner_DewDrops-eProc 
+
+18.06.1.1-SNAPSHOT_QCVMWARE_DewDrops-eProc
+ 
+ /home/webtech/.npm/_logs/
+ 
+#Deployment QCVMWare
+
+Note: http://gitlab.zycus.net/root/dewdrops-eproc files where already updated
+Step 1: Run Data Populator pipeline
+		http://10.95.4.137:8080/job/DataPopulator
+Step 2: Run a GitToConsul Pipeline
+		http://10.95.4.137:8080/job/Git_To_Consul/
+Step 3: Run the QCVMware pipeline
+		http://10.95.4.137:8080/job/Deployment_Process_QCVMWARE/
+		
+ 
+#Deployment SpeedyVMWare environment
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

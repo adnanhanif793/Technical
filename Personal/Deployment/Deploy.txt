@@ -1,0 +1,12 @@
+http://gitlab.zycus.com/root/dewdrops
+
+go to QA dewdrops.properties and do chnages if required
+goto Qc-config and chnage the node app version
+
+
+http://10.95.4.137:8080/job/Git_To_Consul/
+create a tag with changed version number
+
+
+goto http://10.95.4.137:8080/view/QCVMWARE/job/Deployment_Process_QCVMWARE/759/console 
+click build with paramerters and give the details and tag name and build

@@ -1,0 +1,24 @@
+Open A Blank Tab
+type about:config in address bar then press enter (click on I accept the risk!)
+find browser.tabs.remote.autostart
+select the option then click the mouse right side
+Turn The Option As False
+Close the browser for restart browser
+open browser again, inspect the element. I hope It Works Properly
+
+
+
+OR
+
+
+TA
+Trainer Support
+· 2 years ago
+
+type about:config in the URL bar of your Mozilla Firefox browser 
+
+go to browser.tabs.remote.autostart.1 
+
+and browser.tabs.remote.autostart.2 
+
+change both the value to false

@@ -121,7 +121,64 @@ Create a new HTML file with this and hit, u have to change the CSRF and token va
 
 
 
-17- 
+17- There might be a case that url might be a combination of some, eg:
+URL= "members/" + username + " " + password + ".htm";
+
+so u can add members to URL to access the users
+
+https://defendtheweb.net/extras/playground/real/2/members/
+
+
+
+18- Sometimes u might have to modify the cookie to gain access
+Apart from checking cookies in developer tool, u can also use console to access and modify cookies
+console.log(document.cookie)            to check the cookies
+"i3_access=false; PHPSESSID=qt8a3h3qu200eaafcqrpq9rguu; auth_remember=d143fa01bdce29b1c5eba5440f27d28a61a2a966c4e350d1c1b1ed1dd958df5a; cookies_dismissed=1"
+
+document.cookie='i3_access=true';
+
+in this case on changing i3_access=true gives access to the site
+
+
+
+19- For some cases you might have to decode ciphertext using Caesar Cipher or any other decoding algorithm
+use this site: https://cryptii.com/pipes/caesar-cipher
+Select Caesar cipher and check with different shifts
+
+
+20-  If data is in form of
+.... .. –..– / - .... .- -. -.- ... / - — / ... .- – ..- . .-.. / – — .-. ... . / - .... . 
+
+it is morse code, so you have to decode it using morse decoder
+
+
+21- For sql injection we can use in username
+	
+	adnan' OR 1=1 --                  (here 1=1 will always be true and -- is for commenting  everything afterwards)
+	
+	
+22- To know the IP of the server hosting the page you can ping it without the http/https
+	ping defendtheweb.net
+	
+	To check which company hosts the website go to https://myip.ms/ and type the name of the site
+	
+	To get B6-Key header go to chrome tools, network option and select doc in that, from the header of that u can get
+	
+	
+23- To solve crypt4 puzzles go to https://quipqiup.com/
+		
+
+24-
+
+
+	
+
+
+
+
+
+
+
 
 	
 
