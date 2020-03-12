@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/CDC-1.1%Foundation-1.1"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/btf-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/groovy-2.4.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/groovy-json-2.4.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/groovy-xml-2.4.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/guava-16.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/hamcrest-library-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/httpclient-4.5.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/httpcore-4.4.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/httpmime-4.5.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/jackson-annotations-2.9.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/jackson-core-2.9.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/jackson-coreutils-1.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/jackson-databind-2.9.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/jaxb-api-2.2.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/jaxb-osgi-2.2.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/joda-time-2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/jopt-simple-4.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/json-path-3.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/json-schema-core-1.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/json-schema-validator-2.2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/json-schema-validator-3.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/jsr305-3.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/libphonenumber-6.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/mailapi-1.4.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/msg-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/org.apache.sling.javax.activation-0.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/reactive-streams-1.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/reactor-core-3.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/rest-assured-3.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/rhino-1.7R4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/scala-library-2.12.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/scala-support-3.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-aop-4.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-aop-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-beans-4.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-beans-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-commons-3.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-context-4.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-context-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-core-4.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-core-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-expression-4.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-expression-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-jcl-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-mock-mvc-3.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-test-4.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-test-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-web-4.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-web-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-webflux-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-webmvc-4.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/spring-web-test-client-3.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/tagsoup-1.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/uri-template-0.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Desktop/REST Assured/jars/xml-path-3.2.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

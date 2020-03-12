@@ -1,0 +1,37 @@
+package Pattern;
+import org.openqa.selenium.WebDriver;
+
+
+
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+
+
+import org.sikuli.script.FindFailed;
+
+
+
+import org.sikuli.script.Pattern;
+
+
+
+import org.sikuli.script.Screen;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

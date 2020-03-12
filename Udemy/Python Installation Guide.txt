@@ -1,0 +1,14 @@
+install python with pip and set the path of pip in environment variables
+ install selenium in CMD by
+
+pip install selenium
+
+install pydev in eclipse
+
+
+
+if intellisense is not working
+Project > Properties > PyDev-PYTHONPAH > click 'Add source folder' and add the package
+
+
+https://www.guru99.com/selenium-python.html

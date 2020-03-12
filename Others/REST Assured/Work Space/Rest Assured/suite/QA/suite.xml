@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="API'S" >
+<test name="Dewdrops API">
+		<classes>
+			<class name="eInvoice.dewdrops.invoice_resource_endpoint.EINVOICE_12147_FilterAPI"></class>
+		    <class name="eInvoice.dewdrops.invoice_resource_endpoint.EINVOICE_12275_CreditMemoFilter"></class>
+			<class name="eInvoice.dewdrops.attachment_resource_endpoint.EINVOICE_12277_SearchAttachment"></class>
+		    <class name="eInvoice.dewdrops.attachment_resource_endpoint.EINVOICE_12336_GetAttachments"></class>
+			<class name="eInvoice.dewdrops.user_resource_endpoint.EINVOICE_12517_SearchRoleBasedUsers"></class>
+			<class name="eInvoice.dewdrops.user_resource_endpoint.EINVOICE_12518_SearchUsers"></class>  
+			<class name="eInvoice.dewdrops.invoice_resource_endpoint.EINVOICE_12338_InvoiceAuditTrail"></class>
+			<class name="eInvoice.dewdrops.credit_memo_resource_endpoint.EINVOICE_12356_CreditMemoAuditTrail"></class>
+			<class name="eInvoice.dewdrops.invoice_resource_endpoint.EINVOICE_12162_SavedFilterWithId"></class>
+			<class name="eInvoice.dewdrops.invoice_resource_endpoint.EINVOICE_12163_FetchingSavedFilters"></class>
+			<class name="eInvoice.dewdrops.invoice_resource_endpoint.EINVOICE_12228_DeleteFilterApiWithFilterId"></class>
+			<class name="eInvoice.dewdrops.invoice_resource_endpoint.EINVOICE_12229_DeleteWithInfo"></class>
+			<class name="eInvoice.dewdrops.workflowApproval_resource_endpoint.EINVOICE_12294_remindWorkflowApproval"></class>
+			<class name="eInvoice.dewdrops.workflowApproval_resource_endpoint.EINVOICE_12290_delegateWorkflowApproval"></class>
+			<class name="eInvoice.dewdrops.workflowApproval_resource_endpoint.EINVOICE_12880_approveWorkflowApproval"></class>
+			<class name="eInvoice.dewdrops.workflowApproval_resource_endpoint.EINVOICE_12886_rejectWorkflowApproval"></class>
+			<class name="eInvoice.dewdrops.invoice_resource_endpoint.EINVOICE_12409_Mailbox_Search"></class>
+			<class name="eInvoice.dewdrops.processEform_resource_endpoint.EINVOICE_12339_GetProcessEform"></class>
+			<class name="eInvoice.dewdrops.supplier_resource_endpoint.EINVOICE_12278_Search_Supplier"></class>
+			<class name="eInvoice.dewdrops.workflowApproval_resource_endpoint.EINVOICE_12305_Search_Workflow_Approval"></class>
+			<class name="eInvoice.dewdrops.processEform_resource_endpoint.EINVOICE_12340_CreateProcessEform"></class>
+			<class name="eInvoice.dewdrops.processEform_resource_endpoint.EINVOICE_12341_UpdateProcessEform"></class>
+			<class name="eInvoice.dewdrops.processEform_resource_endpoint.EINVOICE_12425_GetProcessEformBasicDetails"></class>
+			<class name="eInvoice.dewdrops.supplier_resource_endpoint.EINVOICE_12278_Search_Supplier"></class>
+			<class name="eInvoice.dewdrops.supplier_resource_endpoint.EINVOICE_12345_getSupplierBankingDetails"></class>
+			<class name="eInvoice.dewdrops.supplier_resource_endpoint.EINVOICE_12346_GetSupplierPaymentTerm"></class>
+			<class name="eInvoice.dewdrops.supplier_resource_endpoint.EINVOICE_13428_getSupplierAccountGroups"></class>
+		</classes>
+	</test>	
+</suite>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/Katalon Studio/Katalon_Studio_Windows_64/configuration/org.eclipse.osgi/89/0/.cp/resources/lib/selenium-server-standalone-3.7.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Downloads/sikuli-script.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adnan.hanif/Downloads/sikulixsetup-1.1.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

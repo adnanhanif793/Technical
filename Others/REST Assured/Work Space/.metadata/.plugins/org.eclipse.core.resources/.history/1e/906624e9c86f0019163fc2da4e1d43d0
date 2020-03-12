@@ -1,0 +1,129 @@
+package Pattern;
+import org.openqa.selenium.WebDriver;
+
+
+
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+
+
+import org.sikuli.script.FindFailed;
+
+
+
+import org.sikuli.script.Pattern;
+
+
+
+import org.sikuli.script.Screen;
+
+
+public class Sikuli {
+
+
+
+public static void main(String[] args) throws Exception {
+
+    Screen s = new Screen();
+
+    Pattern gmail = new Pattern("C:\\Users\\sandeep.anand\\Pictures\\sikuli\\email.PNG");
+
+        
+
+        //Pattern use = new Pattern("F:\\Selenium\\sikuliexp\\Use.PNG");
+
+        //Pattern nxt = new Pattern("F:\\Selenium\\sikuliexp\\Next.PNG");
+
+        //Pattern email = new Pattern("F:\\Selenium\\sikuliexp\\Enter.PNG");
+
+        Pattern pass = new Pattern("C:\\Users\\sandeep.anand\\Pictures\\sikuli\\pass.PNG");
+
+        Pattern mini = new Pattern("C:\\Users\\sandeep.anand\\Pictures\\sikuli\\butn.PNG");
+
+        //Pattern drag = new Pattern("F:\\Selenium\\sikuliexp\\Drag.PNG");
+
+       // Pattern drop = new Pattern("F:\\Selenium\\sikuliexp\\Drop.PNG");
+
+        
+
+        
+
+        WebDriver driver;
+
+
+
+
+
+        // Open Chrome browser    
+
+        driver = new FirefoxDriver();
+
+        driver.manage().window().maximize();
+
+        driver.get("https://login-qcvw.zycus.net/sso/login?serviceName=https://ddcommon-dev.zycus.net");
+
+        s.wait(gmail, 10);
+
+        s.click(gmail);
+
+       // s.click(use);
+
+       // s.wait(email, 10);
+
+       // s.click(email);
+
+        s.type(gmail, "ram.qa1@zycus.com");
+
+       // s.click(nxt);
+
+        s.type(pass, "Zycus@123");
+
+        s.click(mini);
+
+        //s.click(mini);
+
+       // s.drag(drag);
+
+        //s.dragDrop(drop);
+
+        //s.dragDrop(drag, drop);
+
+        
+
+        
+
+        
+
+        
+
+        // Close the browser
+
+        driver.close();
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+}
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+

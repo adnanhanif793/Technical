@@ -1,0 +1,55 @@
+ Introduction:
+
+Selenium is an open source automation testing tool.
+
+It is used exclusively forweb based applications
+
+You can work on multiple operating systems using selenium
+
+Platforms Supported by Selenium
+
+Windows
+
+OS X
+
+Linux
+
+Solaris
+
+following languages are used with selenium.
+
+- Java
+- C#
+- Ruby
+- Pyton
+- PHP
+- Pearl
+
+Selenium Browsers Support:
+
+InternetExplorer
+
+Firefox
+
+Chrome
+
+Safari
+
+Interview Questions
+
+What makes Selenium Unique from other Automation tools?
+
+
+Explain WebDriver Architecture.
+
+Why not older Version Selenium RC 1.0?
+
+
+What are different Versions of Selenium?
+
+
+What are different browsers does Webdriver Support?
+
+
+In how many languages we can write Selenium code?
+ 
