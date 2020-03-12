@@ -1,0 +1,96 @@
+pipeline {
+	agent any 
+	parameters {
+		string(defaultValue: "", description: 'Incident# (in case of ERT)', name: 'salesForceTicketNumber')
+		choice(choices: 'Devint\nStaging\nDemo\nProd\nAwsprod\nSpeedy\nQc\nPreprod', description: 'Which environment?', name: 'environment')
+	}
+	stages {
+		stage('Checkout') {
+			steps {
+				dir('dewdropsui') {
+					fetchFromBitbucket repo: 'ui-dewdrops', branch: 'release/19.02.1.0'
+				}
+				dir('dewdrops-home-bff') {
+					fetchFromBitbucket repo: 'dewdrops-home-bff', branch: 'release/19.02.1.0'
+				}
+				dir('release') {
+					fetchFromBitbucket repo: 'common-dewdrops-release', branch: 'release_19.02.1.0'
+				}
+			}
+		}	
+        stage('Sonar') {
+        	tools {
+        		nodejs 'NodeJS 8'
+        	}
+        	steps {
+        		script {
+        			scannerHome = tool 'Sonar-330'
+        		}
+        		dir("dewdropsui") {
+        			withSonarQubeEnv('SonarQube') {
+        				sh "${scannerHome}/bin/sonar-scanner  -Dsonar.projectKey=com.zycus:dewdrops-common-ui -Dsonar.sources=. -Dsonar.exclusions=node_modules/"
+        			}
+        		}
+        		dir("dewdrops-home-bff") {
+        			withSonarQubeEnv('SonarQube') {
+        				sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=com.zycus:dewdrops-home-bff -Dsonar.sources=. -Dsonar.exclusions=node_modules/"
+        			}
+        		}
+        	}
+        }
+		
+		stage('Build') { 
+			tools {
+				nodejs 'NodeJS 8'
+			}
+			steps {
+			    dir('dewdrops-home-bff/common') {
+					sh 'rm -rf node_modules/' // To emulate npm-ci on older version of npm
+					sh 'rm -rf ../node_modules/' // To emulate npm-ci on older version of npm
+					sh 'npm install && grunt && npm run npm-check'
+				}				
+				dir('dewdropsui') {
+					sh 'npm install'
+					sh 'npm run prod:dewdrops'
+				}
+
+				sh 'rm -rf dist/ build.zip'
+				sh 'mkdir -p dist/builds/{ui,bff,templates}'
+				sh 'rsync -avh --cvs-exclude dewdropsui/dist/dewdrops/* dist/builds/ui'
+				sh 'rsync -avh --cvs-exclude dewdrops-home-bff/* dist/builds/bff'
+				sh 'rsync -avh --cvs-exclude release/* dist/builds'
+
+				zip dir: 'dist', glob: '', zipFile: 'build.zip'
+				injectBuildVersion artifact: 'build.zip', file: 'builds/releaseVersion.properties'
+			}
+		}
+		stage('Publish') {
+			tools {
+				maven 'Maven 3.5.0'
+			}
+			when {
+				expression { currentBuild.getResult() == null || currentBuild.getResult().isBetterThan(Result.UNSTABLE) }
+			}
+			steps {
+				publishProduct name: 'dewdrops-common', version: '19.02.1.0', file: 'build.zip'
+			}
+		}
+	}
+	post {
+		success {
+			mail to: 'shadab.ansari@zycus.com',
+				subject: "Pipeline: ${currentBuild.fullDisplayName} SUCCESS",
+				body: "Build - ${currentBuild.fullDisplayName} is passed. Click the following link for build logs ${env.RUN_DISPLAY_URL}."
+		}
+		unstable {
+			mail to: 'shadab.ansari@zycus.com',
+				subject: "Pipeline: ${currentBuild.fullDisplayName} UNSTABLE",
+				body: "Something is wrong with ${env.RUN_DISPLAY_URL}. Please fix it!"
+		}
+		failure {
+			mail to: 'shadab.ansari@zycus.com',
+				subject: "Pipeline: ${currentBuild.fullDisplayName} FAILED",
+				body: "Something is wrong with ${env.RUN_DISPLAY_URL}. Please fix it!"
+		}
+	}
+}
