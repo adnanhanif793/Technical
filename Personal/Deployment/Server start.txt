@@ -1,0 +1,27 @@
+Steps to start Dewdrops speedy server post AWS server start:
+1.	Login to server 10.90.4.37 (BFF) through putty. (Putty login steps given in the attached document).
+2.	Login as a webtech user
+a.	Command: sudo su – dewdrops
+b.	ssh 10.90.4.37
+c.	sudo su – webtech
+3.	Change the folder location
+a.	cd ../../..
+b.	cd U01/dewdrops/bff_config
+4.	Execute the command ./start.sh [BFF server starts]
+5.	Execute the command 
+a.	exit
+b.	exit
+6.	Login to 10.90.4.178 (UI) server. Commands are:
+a.	ssh 10.90.4.178
+b.	sudo su – webtech
+7.	execute the command: 
+a.	sudo service nginx start [UI nginx starts]
+b.	sudo service nginx status [To check nginx current status]
+
+
+
+vim name of file
+
+
+shift+q
+wq- to save and close the file

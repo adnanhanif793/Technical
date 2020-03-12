@@ -1,0 +1,5 @@
+http://thetestingworldapi.com
+
+http://thetestingworldapi.com/api/studentsDetails
+
+http://thetestingworldapi.com/api/studentsDetails/19

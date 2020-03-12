@@ -1,0 +1,3 @@
+Calculator WSDL   http://www.dneonline.com/calculator.asmx?WSDL
+
+Country Detail WSDL  http://www.webservicex.net/country.asmx?WSDL
