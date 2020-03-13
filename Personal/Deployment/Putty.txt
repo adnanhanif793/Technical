@@ -1,0 +1,13 @@
+1.	Open putty => Under Session – Hostname => Give localjump.zycus.net [Give a name and save session]
+2.	Under SSH – Auth => Browse your Private key and open
+3.	Login as => firstname.lastname
+4.	Give command => sudo su – pdtuser
+5.	Give command => ssh <IP of the server>
+
+1.	QA => 192.168.2.101
+2.       Pre-Prod => 192.168.5.221
+3.       RM => 10.10.10.135
+
+cd /u01/qairequest/application/software/apache-tomcat-8.0.15/logs
+
+tail - 1000f catalina.out
