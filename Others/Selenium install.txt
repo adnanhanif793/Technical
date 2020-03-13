@@ -1,0 +1,11 @@
+pip freeze  - for listing elements installed through pip
+pip list   - also does the same
+
+pip install selenium  - if u have administrator access
+Or else
+pip install selenium --user
+
+Use  -   --user after every command if u don't have administrator access
+
+
+pip install html-testRunner --user

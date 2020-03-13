@@ -1,0 +1,42 @@
+Following has to be followed for setting localhost in kali:
+
+To get access to connect to 127.0.0.1
+MaraiDB> use mysql
+
+create user root2 identified by 'password;'
+
+grant all privileges on *.* to root2;
+
+update user set plugin='' where user='root'
+
+flush privileges;
+
+
+
+
+To set password in mariadb
+
+sudo mysql -u root
+[mysql] use mysql;[mysql] update user set plugin='' where User='root';[mysql] flush privileges;[mysql] \q
+This needs to be followed by following command
+# mysql_secure_installation
+
+sudo mysql_secure_installation 
+
+=========================================================================================================
+
+Following commands for system information on Linux:
+
+vmstat -s   
+
+cat /proc/meminfo
+
+free -m
+ top
+
+
+
+To delete the contents of a file
+
+cat /dev/null > ddcommon_Services.log
+
